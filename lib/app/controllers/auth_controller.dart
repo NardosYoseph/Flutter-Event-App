@@ -13,7 +13,6 @@ class AuthController extends GetxController {
   }
 
   void logout() {
-    // Implement your logout logic here
     isLoggedIn.value = false;
   }
 }
