@@ -13,10 +13,8 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen> {
   void initState() {
     super.initState();
 
-    // Set the duration you want the splash screen to be displayed (in seconds)
     const splashDuration = 6;
 
-    // Use Timer to wait for the specified duration and then navigate to the main screen
     Timer(
       Duration(seconds: splashDuration),
       () {

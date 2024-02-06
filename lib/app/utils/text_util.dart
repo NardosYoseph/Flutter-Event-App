@@ -9,7 +9,6 @@ class TextUtil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Text(text,
-
       style: TextStyle(color:color??Colors.white,fontSize:size?? 16,
           fontWeight:weight==null?FontWeight.w600: FontWeight.w700
       ),);
