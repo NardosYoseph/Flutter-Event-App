@@ -22,9 +22,14 @@ class CustomizedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return SizedBox(
+  width: 370,
+   child: ElevatedButton(
+
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
+        
+        backgroundColor: Color(0XFF509E3D),
         primary: primaryColor ?? Theme.of(context).primaryColor,
         onPrimary: textColor ?? Colors.white,
         elevation: elevation ?? 4,
@@ -32,9 +37,9 @@ class CustomizedButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadius ?? 15),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-        textStyle: TextStyle(fontSize: fontSize ?? 16),
+        textStyle: TextStyle(fontSize: fontSize ?? 18),
       ),
       child: Text(text),
-    );
+      ));
   }
 }

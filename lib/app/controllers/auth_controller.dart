@@ -2,13 +2,17 @@ import 'package:get/get.dart';
 
 class AuthController extends GetxController {
   final RxBool isLoggedIn = false.obs;
+   String? Username;
 
-  void login(String username, String password) {
-     Get.toNamed('/registration');
+
+  void login(String? email, String password) {
+     email=Username;
+     Get.toNamed('/homepage');
     isLoggedIn.value = true;
   }
 
-  void register(String email, String password) {
+  void register(String username,String email, String password) {
+   
     Get.toNamed('/registration');
   }
 
