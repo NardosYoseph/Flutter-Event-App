@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-appBar: AppBar(title: TextUtil(text: "hello${controller.Username}",color: Colors.black,),),
+appBar: AppBar(title: TextUtil(text: "hello",color: Colors.black,),),
 body: Container(child: Text("home"),),
     );
   }

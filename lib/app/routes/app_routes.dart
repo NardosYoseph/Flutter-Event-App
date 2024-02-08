@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 part 'app_pages.dart';
 
 class AppRoutes {
-  static const INITIAL = Routes.SPLASH_SCREEN;
+  static const INITIAL = Routes.LOGIN;
   static final routes = [
     GetPage(name: Routes.LOGIN, page: () => LoginPage()),
     GetPage(name: Routes.REGISTRATION, page: () => RegistrationPage()),

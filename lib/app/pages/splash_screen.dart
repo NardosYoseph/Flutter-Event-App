@@ -13,7 +13,7 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen> {
   void initState() {
     super.initState();
 
-    const splashDuration = 6;
+    const splashDuration = 3;
 
     Timer(
       Duration(seconds: splashDuration),
