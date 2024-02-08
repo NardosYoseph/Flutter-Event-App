@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:event_app/app/controllers/auth_controller.dart';
+import 'package:event_app/app/controllers/auth/auth_controller.dart';
 import 'package:event_app/app/utils/text_util.dart';
 import 'package:event_app/app/widgets/common/button.dart';
 import 'package:event_app/app/widgets/common/text_field.dart';
@@ -50,7 +50,9 @@ class RegistrationPage extends StatelessWidget {
                        SizedBox(height: 10),
                      MyTextField(label: "Password", controller: passwordController,width: 370,),
                       SizedBox(height: 20),
-                   CustomizedButton(text: "Register", onPressed: (){authController.register(usernameController.text,emailController.text, passwordController.text);}),
+                   CustomizedButton(text: "Register", onPressed: (){authController.register(usernameController.text,emailController.text, passwordController.text);
+
+                   }),
                            
                       TextButton(
                         onPressed: () {

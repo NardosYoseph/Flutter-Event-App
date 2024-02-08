@@ -1,4 +1,4 @@
-import 'package:event_app/app/controllers/auth_controller.dart';
+import 'package:event_app/app/controllers/auth/auth_controller.dart';
 import 'package:event_app/app/utils/text_util.dart';
 import 'package:event_app/app/widgets/common/button.dart';
 import 'package:event_app/app/widgets/common/text_field.dart';
@@ -57,7 +57,8 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                            
                       TextButton(
                         onPressed: () {
-                          Get.toNamed('/homepage');
+                          authController.login(emailController.text, passwordController.text);
+                        
                         },
                         child: TextUtil(text: "'Don\'t have an account? Register here.")
                       ),
