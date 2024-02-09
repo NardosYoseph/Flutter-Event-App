@@ -12,4 +12,4 @@ const Color accentColor = Colors.amber;
 const Duration defaultAnimationDuration = Duration(milliseconds: 300);
 
 // API endpoints
-const String eventsApiUrl = 'http://172.16.35.196:3000/api';
+const String eventsApiUrl = 'https://event-app-back-end.onrender.com/api';

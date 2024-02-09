@@ -60,7 +60,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                           authController.login(emailController.text, passwordController.text);
                         
                         },
-                        child: TextUtil(text: "'Don\'t have an account? Register here.")
+                        child: TextButton(onPressed: (){Get.toNamed('/registration');}, child: TextUtil(text: "Don\'t have an account? Register here.")) 
                       ),
                     ],
                   ),
