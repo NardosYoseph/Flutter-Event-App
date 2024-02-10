@@ -1,6 +1,6 @@
 import 'package:event_app/app/utils/text_util.dart';
-import 'package:event_app/app/widgets/common/card.dart';
-import 'package:event_app/app/widgets/common/search.dart';
+import 'package:event_app/app/view/event/widgets/card.dart';
+import 'package:event_app/app/view/event/widgets/fields/search_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -9,6 +9,7 @@ import 'package:event_app/app/controllers/auth/auth_controller.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
+  TextEditingController SearchController =TextEditingController();
   final AuthController controller = Get.find();
   @override
   Widget build(BuildContext context) {
@@ -22,10 +23,15 @@ class HomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                TextUtil(
-                  text: "Popular Events",
-                  color: Colors.black,
-                  size: 16,
+                Row(
+                  children: [
+                    TextUtil(
+                      text: "Popular Events",
+                      color: Colors.black,
+                      size: 16,
+                    ),
+                    SearchTextField(controller: SearchController)
+                  ],
                 ),
                 const SizedBox(
                   height: 15,
@@ -37,21 +43,21 @@ class HomePage extends StatelessWidget {
                     children: [          
                       GestureDetector(
                         onTap: () => Get.toNamed("/event_view"),
-                        child: MyCard(
+                        child: const MyCard(
                           imagePath: "assets/event2.jpg",
                           description: "Amhara Bank\n 1st Year Aniversary",
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
-                      MyCard(
+                      const MyCard(
                           imagePath: "assets/event3.jpg",
                           description: "Dinner program"),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
-                      MyCard(
+                      const MyCard(
                           imagePath: "assets/event4.jpg",
                           description: "Get together"),
                     ],
@@ -67,7 +73,7 @@ class HomePage extends StatelessWidget {
                       text: "All",
                       color: Colors.black,
                     ),
-                    MySearch(),
+  
                   ],
                 ),
                 const SizedBox(

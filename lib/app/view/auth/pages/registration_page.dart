@@ -2,8 +2,9 @@ import 'dart:ui';
 
 import 'package:event_app/app/controllers/auth/auth_controller.dart';
 import 'package:event_app/app/utils/text_util.dart';
-import 'package:event_app/app/widgets/common/button.dart';
-import 'package:event_app/app/widgets/common/text_field.dart';
+import 'package:event_app/app/view/auth/widgets/fields/email_field.dart';
+import 'package:event_app/app/view/auth/widgets/fields/password_field.dart';
+import 'package:event_app/app/view/event/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flare_flutter/flare_actor.dart';
@@ -44,11 +45,11 @@ class RegistrationPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                        SizedBox(height: 30),
-                        MyTextField(label: "Username", controller: usernameController,width: 370,),
+                       TextField(controller: usernameController,decoration: InputDecoration(hintText: "Username",),),
                        SizedBox(height: 10),
-                      MyTextField(label: "Email", controller: emailController,width: 370,),
-                       SizedBox(height: 10),
-                     MyTextField(label: "Password", controller: passwordController,width: 370,),
+                       EmailTextField(controller: emailController),
+                        SizedBox(height: 10),
+                        PasswordTextField(controller: passwordController),
                       SizedBox(height: 20),
                    CustomizedButton(text: "Register", onPressed: (){authController.register(usernameController.text,emailController.text, passwordController.text);
 
