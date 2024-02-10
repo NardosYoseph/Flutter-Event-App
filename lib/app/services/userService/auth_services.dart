@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:event_app/app/models/user/userModel.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../utils/constants.dart';
@@ -21,14 +22,13 @@ class AuthService {
     }
   }
 
-  Future<bool> register(String username, String email, String password) async {
+  Future<bool> register(User user) async {
     // Make a POST request to the registration endpoint
-    print("data"+username+email+password);
+    print("data"+user.email);
     final response = await http.post(
       Uri.parse('$eventsApiUrl/user/register'),
       headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'username': username, 'email': email, 'password': password}),
-     
+      body: jsonEncode({'username': user.username,'email':user.email,"password":user.password}),
     );
 print(response.body);
     // Check if the request was successful and handle the response

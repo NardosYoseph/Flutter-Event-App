@@ -21,16 +21,20 @@ class PasswordTextField extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      obscureText: true, // Hides the entered text
-      decoration: InputDecoration(
-        hintText: hintText,
-        labelText: 'Password', 
-        
-        border: OutlineInputBorder(),
+    return Container(
+      height: 50,
+      width: 350,
+      child: TextFormField(
+        controller: controller,
+        obscureText: true, // Hides the entered text
+        decoration: InputDecoration(
+          hintText: hintText,
+               fillColor: Colors.white,
+               filled: true,
+         enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white,width: 3),borderRadius: BorderRadius.circular(10)),
+        ),
+        validator:  _validatePassword,
       ),
-      validator:  _validatePassword,
     );
   }
 }

@@ -5,4 +5,5 @@ abstract class Routes {
   static const REGISTRATION = '/registration';
   static const HOMEPAGE ='/homepage';
   static const EventView ='/event_view';
+  static const CreateEvent ='/createEvent';
 }

@@ -14,17 +14,21 @@ class SearchTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      onChanged: onChanged,
-      decoration: InputDecoration(
-        hintText: 'Search',
-        prefixIcon: Icon(Icons.search),
-        suffixIcon: IconButton(
-          icon: Icon(Icons.clear),
-          onPressed: onClear,
+    return Container(
+      height: 40,
+      width: 200,
+      child: TextField(
+        controller: controller,
+        onChanged: onChanged,
+        decoration: InputDecoration(
+          hintText: 'Search',
+          prefixIcon: Icon(Icons.search),
+          suffixIcon: IconButton(
+            icon: Icon(Icons.clear),
+            onPressed: onClear,
+          ),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
         ),
-        border: OutlineInputBorder(),
       ),
     );
   }

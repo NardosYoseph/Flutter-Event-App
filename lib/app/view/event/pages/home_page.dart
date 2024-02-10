@@ -23,15 +23,17 @@ class HomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    TextUtil(
-                      text: "Popular Events",
-                      color: Colors.black,
-                      size: 16,
-                    ),
-                    SearchTextField(controller: SearchController)
-                  ],
+                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   children: [
+                     SearchTextField(controller: SearchController),
+                    IconButton(onPressed: (){Get.toNamed("/createEvent");}, icon: Icon(Icons.add,size: 35,color: Colors.black,)),
+                   ],
+                 ),
+                TextUtil(
+                  text: "Popular Events",
+                  color: Colors.black,
+                  size: 16,
                 ),
                 const SizedBox(
                   height: 15,

@@ -1,3 +1,4 @@
+import 'package:event_app/app/models/user/userModel.dart';
 import 'package:event_app/app/services/userService/auth_services.dart';
 import 'package:get/get.dart';
 
@@ -22,12 +23,12 @@ final AuthService _authService = AuthService(); // Create an instance of AuthSer
     isLoggedIn.value = true;
   }
 
-  Future<void> register(String username,String email, String password) async {
+  Future<void> register(User user) async {
    try {
       // Call the registerUser method from AuthService
-      final success = await _authService.register(username, email, password);
+      final success = await _authService.register(user);
       if (success) {
-      Get.toNamed("/homepage");
+      Get.toNamed("/login");
       } else { print('internal Error registering user');
       }
     } catch (error) {

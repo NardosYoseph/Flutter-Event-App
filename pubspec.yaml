@@ -41,6 +41,8 @@ dependencies:
   get_storage: ^2.1.1
   flutter_launcher_icons: ^0.13.1
   http: ^1.2.0
+  flutter_datetime_picker: ^1.5.1
+  image_picker: ^1.0.7
   
   # rive: ^0.12.4
 

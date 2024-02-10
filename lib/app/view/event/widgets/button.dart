@@ -23,7 +23,8 @@ class CustomizedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-  width: 370,
+      height: 50,
+  width: 350,
    child: ElevatedButton(
 
       onPressed: onPressed,
@@ -34,7 +35,7 @@ class CustomizedButton extends StatelessWidget {
         onPrimary: textColor ?? Colors.white,
         elevation: elevation ?? 4,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius ?? 15),
+          borderRadius: BorderRadius.circular(borderRadius ?? 35),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         textStyle: TextStyle(fontSize: fontSize ?? 18),

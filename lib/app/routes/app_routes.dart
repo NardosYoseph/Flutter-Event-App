@@ -1,6 +1,7 @@
 
 import 'package:event_app/app/view/auth/pages/login_page.dart';
 import 'package:event_app/app/view/auth/pages/registration_page.dart';
+import 'package:event_app/app/view/event/pages/create_event_page.dart';
 import 'package:event_app/app/view/event/pages/event_view.dart';
 import 'package:event_app/app/view/event/pages/home_page.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,7 @@ class AppRoutes {
     GetPage(name: Routes.REGISTRATION, page: () => RegistrationPage()),
     GetPage(name: Routes.HOMEPAGE, page: () => HomePage()),
     GetPage(name: Routes.EventView, page: () => EventView()),
+    GetPage(name: Routes.CreateEvent, page: () => CreateEvent()),
 
   ];
 }
