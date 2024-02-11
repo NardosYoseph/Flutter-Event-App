@@ -1,4 +1,4 @@
-import 'package:event_app/app/controllers/auth/auth_controller.dart';
+import 'package:event_app/app/controllers/user_conrollers/auth/auth_controller.dart';
 import 'package:event_app/app/utils/text_util.dart';
 import 'package:event_app/app/view/auth/widgets/fields/email_field.dart';
 import 'package:event_app/app/view/auth/widgets/fields/password_field.dart';
@@ -29,13 +29,8 @@ class LoginForm extends StatelessWidget {
                       SizedBox(height: 20),
                    CustomizedButton(text: "Login", onPressed: (){authController.login(emailController.text, passwordController.text);}),
                            
-                      TextButton(
-                        onPressed: () {
-                          authController.login(emailController.text, passwordController.text);
-                        
-                        },
-                        child: TextButton(onPressed: (){Get.toNamed('/registration');}, child: TextUtil(text: "Don\'t have an account? Register here.")) 
-                      ),
+                      TextButton(onPressed: (){Get.toNamed('/registration');}, child: TextUtil(text: "Don\'t have an account? Register here.")) 
+                      
                     ],
                   ),
                 ),

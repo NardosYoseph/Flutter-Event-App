@@ -1,4 +1,4 @@
-import 'package:event_app/app/controllers/auth/auth_controller.dart';
+import 'package:event_app/app/controllers/user_conrollers/auth/auth_controller.dart';
 import 'package:event_app/app/models/user/userModel.dart';
 import 'package:event_app/app/utils/text_util.dart';
 import 'package:event_app/app/view/auth/widgets/fields/email_field.dart';

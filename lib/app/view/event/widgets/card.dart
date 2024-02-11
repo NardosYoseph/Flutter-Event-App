@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:event_app/app/utils/text_util.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +27,7 @@ final String? description;
           ClipRRect(
             
             borderRadius: BorderRadius.circular(10),
-            child: Image.asset(imagePath!,fit: BoxFit.cover,height: 200,width: 200,),
+            child: Image.file(  File(imagePath!),fit: BoxFit.cover,height: 200,width: 200,),
           ),
       Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -33,7 +35,7 @@ final String? description;
         children: [
           TextUtil(text: description!),
        
-      Row(
+      const Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
         Icon(Icons.star,color: Color.fromARGB(255, 245, 189, 3),),

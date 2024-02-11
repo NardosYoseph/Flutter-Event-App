@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:event_app/app/controllers/auth/auth_controller.dart';
+import 'package:event_app/app/controllers/user_conrollers/auth/auth_controller.dart';
 import 'package:event_app/app/view/auth/widgets/forms/registration_form.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

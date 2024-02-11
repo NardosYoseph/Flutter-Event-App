@@ -3,7 +3,6 @@ import 'package:event_app/app/services/userService/auth_services.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
-  final RxBool isLoggedIn = false.obs;
 final AuthService _authService = AuthService(); // Create an instance of AuthService
 
 
@@ -20,7 +19,6 @@ final AuthService _authService = AuthService(); // Create an instance of AuthSer
       // Handle any exceptions
       print('Error registering user: $error');
     }
-    isLoggedIn.value = true;
   }
 
   Future<void> register(User user) async {
@@ -38,6 +36,5 @@ final AuthService _authService = AuthService(); // Create an instance of AuthSer
   }
 
   void logout() {
-    isLoggedIn.value = false;
   }
 }
