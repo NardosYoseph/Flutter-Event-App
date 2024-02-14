@@ -43,6 +43,7 @@ dependencies:
   http: ^1.2.0
   flutter_datetime_picker: ^1.5.1
   image_picker: ^1.0.7
+  shared_preferences: ^2.2.2
   
   # rive: ^0.12.4
 

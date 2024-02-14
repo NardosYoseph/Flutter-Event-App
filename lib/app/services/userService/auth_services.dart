@@ -2,22 +2,26 @@ import 'dart:convert';
 import 'package:event_app/app/models/user/userModel.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/constants.dart';
 class AuthService {
 
   Future<bool> login(String email, String password) async {
-    // Make a POST request to the login endpoint
+    
     final response = await http.post(
       Uri.parse('$eventsApiUrl/user/login'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'email': email, 'password': password}),
     );
-    
     if (response.statusCode == 200) {
-      return true; // Successful login
+final Map<String, dynamic> responseData = json.decode(response.body);
+    final String token = responseData['token'];
+final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', token);
+
+      return true; 
     } else {
-      // Handle errors
-      return false; // Failed login
+      return false; 
     }
   }
 
