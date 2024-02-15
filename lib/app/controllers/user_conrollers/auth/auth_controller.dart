@@ -11,13 +11,11 @@ final AuthService _authService = AuthService(); // Create an instance of AuthSer
      try {
       // Call the registerUser method from AuthService
       final success = await _authService.login(email, password);
-      if (success) {
-      Get.toNamed("/homepage");
-      } else { print('internal Error loging user');
-      }
-    } catch (error) {
+      print(success);
+    Get.toNamed("/homepage");
+        } catch (error) {
       // Handle any exceptions
-      print('Error registering user: $error');
+      print('Error logging user: $error');
     }
   }
 

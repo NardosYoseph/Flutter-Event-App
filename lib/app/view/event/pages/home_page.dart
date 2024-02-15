@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
                    ],
                  ),
                 TextUtil(
-                  text: "Popular Events",
+                  text: "Recent Events",
                   color: Colors.black,
                   size: 16,
                 ),
@@ -83,10 +83,9 @@ class _HomePageState extends State<HomePage> {
                       text: "All",
                       color: Colors.black,
                     ),
-  
                   ],
                 ),
-                Container(
+                SizedBox(
                   width: 200,
                   height: 350,
                   child: ListView.builder(

@@ -5,6 +5,7 @@ import 'package:event_app/app/services/eventService/event_service.dart';
 import 'package:event_app/app/view/event/pages/create_event_page.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EventController extends GetxController{
 final EventService _eventService= EventService();
@@ -13,6 +14,9 @@ final EventService _eventService= EventService();
       // Call the registerUser method from AuthService
       final success = await _eventService.createEvent(event);
       if (success) {
+final prefs = await SharedPreferences.getInstance();
+
+        prefs.getString('token');
       Get.toNamed("/homepage");
       } else { print('internal Error registering event');
       }
