@@ -14,15 +14,12 @@ final EventService _eventService= EventService();
       // Call the registerUser method from AuthService
       final success = await _eventService.createEvent(event);
       if (success) {
-final prefs = await SharedPreferences.getInstance();
-
-        prefs.getString('token');
       Get.toNamed("/homepage");
       } else { print('internal Error registering event');
       }
     } catch (error) {
       // Handle any exceptions
-      print('Error fetching user: $error');
+      print('Error adding event: $error');
     }
   }
    Future<List<Event>> fetchEvent() async {

@@ -27,7 +27,7 @@ class _EventFormState extends State<EventForm> {
   String _time ="";
   late TimeOfDay _timeOfDay;
   double _rate = 0;
-  String _image = "";
+  File? _image ;
   late int _people;
 
   @override
@@ -69,7 +69,7 @@ class _EventFormState extends State<EventForm> {
         await _picker.pickImage(source: ImageSource.gallery);
     if (pickedImage != null) {
       setState(() {
-        _image = pickedImage.path;
+        _image = File(pickedImage.path);
       });
     }
   }
@@ -116,10 +116,10 @@ class _EventFormState extends State<EventForm> {
             SizedBox(height: 20),
             GestureDetector(
               onTap: _selectImage,
-              child: _image.isEmpty
+             child: _image == null
                   ? Text('Select Image')
                   : Image.file(
-                      File(_image),
+                      _image!,
                       height: 100,
                       width: 100,
                       fit: BoxFit.cover,
@@ -146,10 +146,10 @@ class _EventFormState extends State<EventForm> {
                       description: descriptionController.text,
                       date: _date,
                       time: _time,
-                      image: _image,
+                      image: _image!,
                       rate: _rate,
                       people: _people);
-                  eventController.CreateEvent(event);
+                  eventController.CreateEvent(event.toJsonString() as Event);
                 }
                 print(_image);
               },

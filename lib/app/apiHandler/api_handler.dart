@@ -22,6 +22,7 @@ class ApiHandler {
   }
 
   Future<dynamic> post(String endpoint, dynamic data, {Map<String, String>? headers}) async {
+    print("$data");
     final response = await http.post(
       Uri.parse('$_baseUrl$endpoint'),
       headers: headers ?? {'Content-Type': 'application/json'},
@@ -29,6 +30,19 @@ class ApiHandler {
     );
     return _handleResponse(response);
   }
+  //  Future<dynamic> post(String endpoint, dynamic data, {Map<String, String>? headers}) async {
+  //   print("$data");
+  //   final request = http.MultipartRequest('POST', Uri.parse(baseUrl));
+  // request.fields['description'] = data.description;
+  // request.fields['description'] = data.description;
+
+  // request.files.add(http.MultipartFile.fromBytes('image', bytes, filename: image.name, contentType: mimeType));
+
+  // // Send request
+  // final response = await request.send();
+
+  //   return _handleResponse(response);
+  // }
 
   Future<dynamic> put(String endpoint, dynamic data) async {
     final response = await http.put(

@@ -8,7 +8,7 @@ import '../../utils/constants.dart';
 class AuthService {
 
   Future<Object> login(String email, String password) async {
-    final response = await ApiHandler().post("/user/login",{});
+    final response = await ApiHandler().post("/user/login",{"email":email,"password":password});
       return response;
   }
 

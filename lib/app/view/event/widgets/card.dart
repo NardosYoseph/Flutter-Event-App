@@ -4,12 +4,12 @@ import 'package:event_app/app/utils/text_util.dart';
 import 'package:flutter/material.dart';
 
 class MyCard extends StatelessWidget {
-final String? imagePath;
+final File? image;
 final String? description;
 
 
 
-  const MyCard({super.key,required this.imagePath,required,this.description});
+  const MyCard({super.key,required this.image,required,this.description});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ final String? description;
           ClipRRect(
             
             borderRadius: BorderRadius.circular(10),
-            child: Image.file(  File(imagePath!),fit: BoxFit.cover,height: 200,width: 200,),
+            child: Image.file(  File(image! as String),fit: BoxFit.cover,height: 200,width: 200,),
           ),
       Column(
         mainAxisAlignment: MainAxisAlignment.end,

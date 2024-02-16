@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                       scrollDirection: Axis.horizontal,
                       itemCount: events.length,
                       itemBuilder: (context, index) {
-                        return MyCard(description: events[index].description,imagePath: events[index].image,);
+                        return MyCard(description: events[index].description,image: events[index].image,);
                       }
                     ),
                ),
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                     scrollDirection: Axis.vertical,
                     itemCount: events.length,
                     itemBuilder: (context, index) {
-                      return MyCard(description: events[index].description,imagePath: events[index].image,);
+                      return MyCard(description: events[index].description,image: events[index].image,);
                     }
                   ),
                 )
