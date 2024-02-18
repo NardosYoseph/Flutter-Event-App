@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:dio/dio.dart'as dio;
 import 'package:event_app/app/controllers/event_controllers/event_controller.dart';
 import 'package:event_app/app/models/event/eventModel.dart';
 import 'package:event_app/app/view/event/widgets/fields/event_description_field.dart';
@@ -149,7 +149,11 @@ class _EventFormState extends State<EventForm> {
                       image: _image!,
                       rate: _rate,
                       people: _people);
-                  eventController.CreateEvent(context,event.toJsonString() as Event);
+
+                      
+
+
+                  eventController.CreateEvent(context,event );
                 }
                 print(_image);
               },

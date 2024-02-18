@@ -2,6 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:event_app/app/utils/constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
+import 'package:dio/dio.dart' as dio;
+
 
 class ApiHandler {
   static final ApiHandler _instance = ApiHandler._internal();
@@ -31,28 +34,18 @@ class ApiHandler {
     );
     return _handleResponse(response);
   }
-   Future<dynamic> MultipartRequest(String endpoint, dynamic data, {Map<String, String>? headers}) async {
-    print("$data");
-  // final bytes = await data.image.readAsBytes();
-  //   final mimeType = mime(data.image.path);
-  final request = http.MultipartRequest('POST', Uri.parse('$_baseUrl$endpoint'));
-      if (headers != null) {
-      request.headers.addAll(headers);
-    }else{
-      request.headers.addAll({'Content-Type': 'multipart/form-data'});
-    }
-    data.forEach((key, value) async {
-      if (value is File) {
-        request.files.add(http.MultipartFile.fromBytes(key, await value.readAsBytes(), filename: value.path));
-      } else {
-        request.fields[key] = value.toString();
-      }
-    });
-  // // Send request
-  final response = await request.send();
+  
+  Future<dynamic> MultipartRequest(String endpoint,dio.FormData formData, {Map<String, String>? headers,}) async {
+  print(formData.fields); 
+  final response = await http.post(
+    Uri.parse('$_baseUrl$endpoint'),
+    headers: headers ?? {'Content-Type': 'multipart/form-data'},
+    body: formData, // Use FormData directly
+  );
 
-    return _handleResponse(response as http.Response);
-  }
+  return _handleResponse(response);
+}
+
 
   Future<dynamic> put(String endpoint, dynamic data) async {
     final response = await http.put(
@@ -68,11 +61,22 @@ class ApiHandler {
     return _handleResponse(response);
   }
 
-  dynamic _handleResponse(http.Response response) {
+  dynamic _handleResponse(dynamic response) async {
+  if (response is StreamedResponse) {
+    final decodedBody = await response.stream.bytesToString();
+    if (response.statusCode == 200) {
+      return jsonDecode(decodedBody);
+    } else {
+      throw Exception('Failed to load data: $decodedBody');
+    }
+  } else if (response is http.Response) {
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {
-      throw Exception('Failed to load data');
+      throw Exception('Failed to load data: ${response.body}');
     }
+  } else {
+    throw ArgumentError('Invalid response type: ${response.runtimeType}');
   }
+}
 }

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:js';
 import 'package:event_app/app/models/event/eventModel.dart';
 import 'package:event_app/app/services/eventService/event_service.dart';
 import 'package:event_app/app/view/event/pages/create_event_page.dart';
@@ -7,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dio/dio.dart'as dio;
+
 
 class EventController extends GetxController{
 final EventService _eventService= EventService();
@@ -17,7 +18,9 @@ final EventService _eventService= EventService();
       ScaffoldMessenger.of(context ).showSnackBar(SnackBar(content: Text('Event created successfully')));
       if (success) {
       Get.toNamed("/homepage");
-      } else { print('internal Error registering event');
+      } else { 
+         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error ctreating Event')));
+        print('internal Error registering event');
       }
     } catch (error) {
          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error ctreating Event')));

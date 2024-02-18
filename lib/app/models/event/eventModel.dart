@@ -1,6 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
+import 'dart:io';// Import Dio and MultipartFile
+import 'package:dio/dio.dart';
+import 'package:path/path.dart'; // Import basename
 
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 
 class Event {
@@ -32,18 +35,21 @@ class Event {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'description': description,
-      'date': date.toIso8601String(),
-      'time': time,
-      'image': image, // Assuming image is already a path or URL
-      'rate': rate,
-      'people': people,
-    };
-  }
+   dio.FormData toFormData() {
+    dio.FormData formData = dio.FormData();
 
-  String toJsonString() {
-    return jsonEncode(toJson());
+    formData.fields.add(MapEntry('description', description));
+    formData.fields.add(MapEntry('date', date.toIso8601String()));
+    formData.fields.add(MapEntry('time', time));
+    formData.fields.add(MapEntry('rate', rate.toString()));
+    formData.fields.add(MapEntry('people', people.toString()));
+
+    // Add the image file
+    formData.files.add(MapEntry(
+      'image',
+      dio.MultipartFile.fromFileSync(image.path, filename: basename(image.path)),
+    ));
+
+    return formData;
   }
 }
