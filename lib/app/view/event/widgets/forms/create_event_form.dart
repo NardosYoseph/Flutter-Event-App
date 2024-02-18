@@ -149,7 +149,7 @@ class _EventFormState extends State<EventForm> {
                       image: _image!,
                       rate: _rate,
                       people: _people);
-                  eventController.CreateEvent(event.toJsonString() as Event);
+                  eventController.CreateEvent(context,event.toJsonString() as Event);
                 }
                 print(_image);
               },

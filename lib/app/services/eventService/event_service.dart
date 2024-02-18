@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:js';
 import 'package:event_app/app/apiHandler/api_handler.dart';
 import 'package:event_app/app/models/event/eventModel.dart';
 import 'package:get/get.dart';
@@ -8,7 +9,7 @@ import '../../utils/constants.dart';
 class EventService{
       List<Event> events = [];
   Future<bool> createEvent(Event event) async {
-    final response = await ApiHandler().post("/event/create", event);
+    final response = await ApiHandler().MultipartRequest("/event/create", event);
     return response;
   }
 

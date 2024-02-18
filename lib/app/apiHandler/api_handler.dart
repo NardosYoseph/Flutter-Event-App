@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:event_app/app/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
@@ -30,19 +31,28 @@ class ApiHandler {
     );
     return _handleResponse(response);
   }
-  //  Future<dynamic> post(String endpoint, dynamic data, {Map<String, String>? headers}) async {
-  //   print("$data");
-  //   final request = http.MultipartRequest('POST', Uri.parse(baseUrl));
-  // request.fields['description'] = data.description;
-  // request.fields['description'] = data.description;
-
-  // request.files.add(http.MultipartFile.fromBytes('image', bytes, filename: image.name, contentType: mimeType));
-
+   Future<dynamic> MultipartRequest(String endpoint, dynamic data, {Map<String, String>? headers}) async {
+    print("$data");
+  // final bytes = await data.image.readAsBytes();
+  //   final mimeType = mime(data.image.path);
+  final request = http.MultipartRequest('POST', Uri.parse('$_baseUrl$endpoint'));
+      if (headers != null) {
+      request.headers.addAll(headers);
+    }else{
+      request.headers.addAll({'Content-Type': 'multipart/form-data'});
+    }
+    data.forEach((key, value) async {
+      if (value is File) {
+        request.files.add(http.MultipartFile.fromBytes(key, await value.readAsBytes(), filename: value.path));
+      } else {
+        request.fields[key] = value.toString();
+      }
+    });
   // // Send request
-  // final response = await request.send();
+  final response = await request.send();
 
-  //   return _handleResponse(response);
-  // }
+    return _handleResponse(response as http.Response);
+  }
 
   Future<dynamic> put(String endpoint, dynamic data) async {
     final response = await http.put(
