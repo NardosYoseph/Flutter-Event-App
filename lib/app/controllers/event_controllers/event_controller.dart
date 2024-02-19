@@ -15,8 +15,9 @@ final EventService _eventService= EventService();
    try {
       // Call the registerUser method from AuthService
       final success = await _eventService.createEvent(event);
-      ScaffoldMessenger.of(context ).showSnackBar(SnackBar(content: Text('Event created successfully')));
       if (success) {
+      ScaffoldMessenger.of(context ).showSnackBar(SnackBar(content: Text('Event created successfully')));
+
       Get.toNamed("/homepage");
       } else { 
          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error ctreating Event')));
@@ -33,6 +34,7 @@ final EventService _eventService= EventService();
    try {
       // Call the registerUser method from AuthService
       final response = await _eventService.fetchEvent();
+      
      return response;
     } catch (error) {
       // Handle any exceptions

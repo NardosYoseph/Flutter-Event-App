@@ -10,9 +10,9 @@ class Event {
   final String description;
   final DateTime date;
   final String time;
-  final File image;
   final double rate;
   final int people;
+  final File image;
 
   Event({
     required this.description,
@@ -25,16 +25,17 @@ class Event {
   });
 
 
-  // factory Event.fromJson(Map<String, dynamic> json) {
-  //   return Event(
-  //     description: json['description'],
-  //     date: DateTime.parse(json['date']),
-  //     time: json['time'],
-  //     image: json['image'],
-  //     rate: json['rate'].toDouble(),
-  //     people: json['people'],
-  //   );
-  // }
+  factory Event.fromJson(Map<String, dynamic> json) {
+     File imageFile = File(json['image']);
+    return Event(
+      description: json['description'],
+      date: DateTime.parse(json['date']),
+      time: json['time'],
+      image: imageFile,
+      rate: json['rate'].toDouble(),
+      people: json['people'],
+    );
+  }
 
    Future<FormData> toFormData() async {
     FormData formData = FormData();
