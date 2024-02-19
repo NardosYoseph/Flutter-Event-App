@@ -150,12 +150,8 @@ class _EventFormState extends State<EventForm> {
                       rate: _rate,
                       people: _people);
 
-                      
-
-
                   eventController.CreateEvent(context,event );
                 }
-                print(_image);
               },
               child: Text('Create Event'),
             ),

@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:event_app/app/utils/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-import 'package:dio/dio.dart' as dio;
 
 
 class ApiHandler {
@@ -35,16 +35,32 @@ class ApiHandler {
     return _handleResponse(response);
   }
   
-  Future<dynamic> MultipartRequest(String endpoint,dio.FormData formData, {Map<String, String>? headers,}) async {
-  print(formData.fields); 
-  final response = await http.post(
-    Uri.parse('$_baseUrl$endpoint'),
-    headers: headers ?? {'Content-Type': 'multipart/form-data'},
-    body: formData, // Use FormData directly
-  );
+  Future<bool> MultipartRequest(String endpoint,FormData formData, {Map<String, String>? headers,}) async {
 
-  return _handleResponse(response);
+  var request = http.MultipartRequest('POST', Uri.parse('$_baseUrl$endpoint'),)
+    ..headers.addAll(headers!) 
+    ..fields.addAll(Map.fromEntries(formData.fields));
+var fileField = formData.files.first;
+    var file = fileField.value;
+    request.files.add(http.MultipartFile(
+      fileField.key,
+      file.finalize(),
+      file.length, 
+      filename: file.filename, 
+    ));
+print(request.fields);
+  var response = await request.send();
+  if (response.statusCode == 200) {
+     return true;
+} else {
+  // Handle errors differently based on status code or response body
+ 
+   print('Error adding event: ${response.statusCode} - ${response}');
+
+  return false;
 }
+}
+
 
 
   Future<dynamic> put(String endpoint, dynamic data) async {

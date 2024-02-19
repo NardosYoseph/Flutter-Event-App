@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'dart:io';// Import Dio and MultipartFile
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:dio/dio.dart';
-import 'package:path/path.dart'; // Import basename
-
-import 'package:dio/dio.dart' as dio;
+import 'package:path/path.dart';
 import 'package:flutter/material.dart';
 
 class Event {
@@ -18,37 +18,44 @@ class Event {
     required this.description,
     required this.date,
     required this.time,
-    required this.image,
     required this.rate,
     required this.people,
+    required this.image,
+
   });
 
 
-  factory Event.fromJson(Map<String, dynamic> json) {
-    return Event(
-      description: json['description'],
-      date: DateTime.parse(json['date']),
-      time: json['time'],
-      image: json['image'],
-      rate: json['rate'].toDouble(),
-      people: json['people'],
-    );
-  }
+  // factory Event.fromJson(Map<String, dynamic> json) {
+  //   return Event(
+  //     description: json['description'],
+  //     date: DateTime.parse(json['date']),
+  //     time: json['time'],
+  //     image: json['image'],
+  //     rate: json['rate'].toDouble(),
+  //     people: json['people'],
+  //   );
+  // }
 
-   dio.FormData toFormData() {
-    dio.FormData formData = dio.FormData();
+   Future<FormData> toFormData() async {
+    FormData formData = FormData();
 
     formData.fields.add(MapEntry('description', description));
     formData.fields.add(MapEntry('date', date.toIso8601String()));
     formData.fields.add(MapEntry('time', time));
     formData.fields.add(MapEntry('rate', rate.toString()));
     formData.fields.add(MapEntry('people', people.toString()));
-
-    // Add the image file
-    formData.files.add(MapEntry(
-      'image',
-      dio.MultipartFile.fromFileSync(image.path, filename: basename(image.path)),
-    ));
+  
+  
+  File imageFile = image;
+  formData.files.add(MapEntry(
+    'image',
+    await MultipartFile.fromFile(
+      imageFile.path,
+      filename: imageFile.path.split('/').last,
+      contentType: MediaType('image',  'jpeg'), // Adjust according to your file type
+    ),
+  ));
+    print(formData.files is http.MultipartFile);
 
     return formData;
   }

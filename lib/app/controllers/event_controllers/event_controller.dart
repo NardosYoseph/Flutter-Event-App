@@ -25,7 +25,7 @@ final EventService _eventService= EventService();
     } catch (error) {
          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error ctreating Event')));
 
-      print('Error adding event: $error');
+      print('controller Error adding event: $error');
     }
   }
    Future<List<Event>> fetchEvent() async {
