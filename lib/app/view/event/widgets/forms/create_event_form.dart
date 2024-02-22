@@ -69,7 +69,7 @@ class _EventFormState extends State<EventForm> {
         await _picker.pickImage(source: ImageSource.gallery);
     if (pickedImage != null) {
       setState(() {
-        _image = File(pickedImage.path);
+        _image = File(pickedImage.path); 
       });
     }
   }
@@ -146,11 +146,11 @@ class _EventFormState extends State<EventForm> {
                       description: descriptionController.text,
                       date: _date,
                       time: _time,
-                      image: _image!,
+                      image: _image!.path,
                       rate: _rate,
                       people: _people);
 
-                  eventController.CreateEvent(context,event );
+                  eventController.CreateEvent(context,event,_image );
                 }
               },
               child: Text('Create Event'),

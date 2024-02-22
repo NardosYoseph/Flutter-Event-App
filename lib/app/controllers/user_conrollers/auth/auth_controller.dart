@@ -1,5 +1,6 @@
 import 'package:event_app/app/models/user/userModel.dart';
 import 'package:event_app/app/services/userService/auth_services.dart';
+import 'package:event_app/app/view/event/widgets/snackbar.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
@@ -25,10 +26,12 @@ final AuthService _authService = AuthService(); // Create an instance of AuthSer
       final success = await _authService.register(user);
       if (success) {
       Get.toNamed("/login");
-      } else { print('internal Error registering user');
+      } else {
+        CustomSnackBar(message: 'invalid username or password');
+         print('internal Error loggind user');
       }
     } catch (error) {
-      // Handle any exceptions
+        CustomSnackBar(message: 'Something went wrong');
       print('Error registering user: $error');
     }
   }

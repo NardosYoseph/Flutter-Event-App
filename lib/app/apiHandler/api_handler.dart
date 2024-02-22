@@ -35,31 +35,31 @@ class ApiHandler {
     return _handleResponse(response);
   }
   
-  Future<bool> MultipartRequest(String endpoint,FormData formData, {Map<String, String>? headers,}) async {
+//   Future<bool> MultipartRequest(String endpoint,FormData formData, {Map<String, String>? headers,}) async {
 
-  var request = http.MultipartRequest('POST', Uri.parse('$_baseUrl$endpoint'),)
-    ..headers.addAll(headers!) 
-    ..fields.addAll(Map.fromEntries(formData.fields));
-var fileField = formData.files.first;
-    var file = fileField.value;
-    request.files.add(http.MultipartFile(
-      fileField.key,
-      file.finalize(),
-      file.length, 
-      filename: file.filename, 
-    ));
-print(request.fields);
-  var response = await request.send();
-  if (response.statusCode == 200) {
-     return true;
-} else {
-  // Handle errors differently based on status code or response body
+//   var request = http.MultipartRequest('POST', Uri.parse('$_baseUrl$endpoint'),)
+//     ..headers.addAll(headers!) 
+//     ..fields.addAll(Map.fromEntries(formData.fields));
+// var fileField = formData.files.first;
+//     var file = fileField.value;
+//     request.files.add(http.MultipartFile(
+//       fileField.key,
+//       file.finalize(),
+//       file.length, 
+//       filename: file.filename, 
+//     ));
+// print(request.fields);
+//   var response = await request.send();
+//   if (response.statusCode == 200) {
+//      return true;
+// } else {
+//   // Handle errors differently based on status code or response body
  
-   print('Error adding event: ${response.statusCode} - ${response}');
+//    print('Error adding event: ${response.statusCode} - ${response}');
 
-  return false;
-}
-}
+//   return false;
+// }
+// }
 
 
 

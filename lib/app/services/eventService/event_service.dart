@@ -10,8 +10,8 @@ import 'package:dio/dio.dart' ;
 class EventService{
   Future<bool> createEvent(Event event) async {
       print(event.image);
-    final formData = await event.toFormData();
-    final response = await ApiHandler().MultipartRequest("/event/create", formData,headers: {'Content-Type': 'multipart/form-data'});
+    // final formData = await event.toFormData();
+    final response = await ApiHandler().post("/event/create", event);
     return response;
   }
 
@@ -22,7 +22,6 @@ class EventService{
     List<Event> events = (response['eventList'] as List<dynamic>)
         .map((json) => Event.fromJson(json))
         .toList();
-        
     return events;
   } else {
     throw Exception('Failed to fetch events');

@@ -4,7 +4,7 @@ import 'package:event_app/app/utils/text_util.dart';
 import 'package:flutter/material.dart';
 
 class MyCard extends StatelessWidget {
-final File? image;
+final String? image;
 final String? description;
 
 
@@ -27,8 +27,7 @@ final String? description;
           ClipRRect(
             
             borderRadius: BorderRadius.circular(10),
-            child: Image.file(  File(image! as String),fit: BoxFit.cover,height: 200,width: 200,),
-          ),
+         child: Image.network(image!,fit: BoxFit.cover,)),
       Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.start,

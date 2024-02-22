@@ -12,7 +12,7 @@ class Event {
   final String time;
   final double rate;
   final int people;
-  final File image;
+  final String image;
 
   Event({
     required this.description,
@@ -26,12 +26,11 @@ class Event {
 
 
   factory Event.fromJson(Map<String, dynamic> json) {
-     File imageFile = File(json['image']);
     return Event(
       description: json['description'],
       date: DateTime.parse(json['date']),
       time: json['time'],
-      image: imageFile,
+      image: json['image'],
       rate: json['rate'].toDouble(),
       people: json['people'],
     );
@@ -46,18 +45,15 @@ class Event {
     formData.fields.add(MapEntry('rate', rate.toString()));
     formData.fields.add(MapEntry('people', people.toString()));
   
-  
-  File imageFile = image;
+  // File imageFile = image;
   formData.files.add(MapEntry(
     'image',
     await MultipartFile.fromFile(
-      imageFile.path,
-      filename: imageFile.path.split('/').last,
+      image,
+      filename: image.split('/').last,
       contentType: MediaType('image',  'jpeg'), // Adjust according to your file type
     ),
   ));
-    print(formData.files is http.MultipartFile);
-
     return formData;
   }
 }
