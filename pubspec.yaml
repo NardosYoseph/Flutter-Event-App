@@ -47,6 +47,7 @@ dependencies:
   dio: ^5.4.0
   firebase_core: ^2.25.4
   firebase_storage: ^11.6.6
+  firebase_auth: ^4.17.4
   
   # rive: ^0.12.4
 

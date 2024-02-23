@@ -10,7 +10,7 @@ import 'package:event_app/app/view/event/widgets/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart'as dio;
-
+import 'package:firebase_auth/firebase_auth.dart';
 
 class EventController extends GetxController{
 final EventService _eventService= EventService();
@@ -18,8 +18,14 @@ final FirebaseStorage storage = FirebaseStorage.instance;
 
   Future<void> CreateEvent(BuildContext context,Event event,File? image) async {
    try {
+ final userCredential = await signInAnonymously();
+  final user = userCredential?.user;
 
-      final imageUrl = await _uploadImageToFirebaseStorage(image!);
+  if (user == null) {
+    return null; 
+  }
+
+      final imageUrl = await _uploadImageToFirebaseStorage(image!,user.uid);
 
        final updatedEvent = Event(
         // Copy the properties from the original event
@@ -59,24 +65,25 @@ final FirebaseStorage storage = FirebaseStorage.instance;
     }
   }
 }
-Future<String> _uploadImageToFirebaseStorage(File image) async {
+Future<String> _uploadImageToFirebaseStorage(File image,String userId) async {
     try {
-      // Generate a unique filename for the image
-      final fileName = path.basename(image.path);
-
-      // Get a reference to the Firebase Storage location
-      final ref = firebase_storage.FirebaseStorage.instance.ref().child('event_images/$fileName');
-
-      // Upload the image file
-      final uploadTask = ref.putFile(image);
-
-      // Wait for the upload to complete and get the image URL
-      final snapshot = await uploadTask.whenComplete(() {});
-      final imageUrl = await snapshot.ref.getDownloadURL();
-
-      return imageUrl;
-    } catch (error) {
+    final filename = '$userId/${DateTime.now().millisecondsSinceEpoch}.jpg';
+    final ref = FirebaseStorage.instance.ref().child('event_images/$filename');
+    final uploadTask = ref.putFile(image);
+    final snapshot = await uploadTask.whenComplete(() {});
+    return await snapshot.ref.getDownloadURL();
+  } catch (error) {
       print('Error uploading image to Firebase Storage: $error');
       rethrow; // Rethrow the error to handle it in the caller
     }
   }
+  Future<UserCredential?> signInAnonymously() async {
+  try {
+    final credential = await FirebaseAuth.instance.signInAnonymously();
+    if(credential.user != null) print('Signed in anonymously as: $credential');
+    return credential;
+  } catch (e) {
+    print('Error signing in anonymously: $e');
+    return null;
+  }
+}

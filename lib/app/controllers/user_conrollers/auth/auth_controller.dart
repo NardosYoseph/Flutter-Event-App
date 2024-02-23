@@ -39,3 +39,4 @@ final AuthService _authService = AuthService(); // Create an instance of AuthSer
   void logout() {
   }
 }
+
