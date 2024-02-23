@@ -25,7 +25,6 @@ final String? description;
           alignment: AlignmentDirectional.bottomStart,
           children:[ 
           ClipRRect(
-            
             borderRadius: BorderRadius.circular(10),
          child: Image.network(image!,fit: BoxFit.cover,)),
       Column(
@@ -33,7 +32,6 @@ final String? description;
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextUtil(text: description!),
-       
       const Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
