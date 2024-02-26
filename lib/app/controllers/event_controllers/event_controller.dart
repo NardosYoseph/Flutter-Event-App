@@ -24,7 +24,6 @@ final FirebaseStorage storage = FirebaseStorage.instance;
   if (user == null) {
     return null; 
   }
-
       final imageUrl = await _uploadImageToFirebaseStorage(image!,user.uid);
 
        final updatedEvent = Event(
@@ -38,7 +37,7 @@ final FirebaseStorage storage = FirebaseStorage.instance;
         people: event.people,
       );
       final success = await _eventService.createEvent(updatedEvent);
-      if (success) {
+      if (success!=null) {
         CustomSnackBar(message: "Event created successfully");
       Get.toNamed("/homepage");
       } else { 
@@ -65,16 +64,19 @@ final FirebaseStorage storage = FirebaseStorage.instance;
     }
   }
 }
-Future<String> _uploadImageToFirebaseStorage(File image,String userId) async {
+Future<String> _uploadImageToFirebaseStorage(File image,String token) async {
     try {
-    final filename = '$userId/${DateTime.now().millisecondsSinceEpoch}.jpg';
+    final filename = '${DateTime.now().millisecondsSinceEpoch}.jpg';
     final ref = FirebaseStorage.instance.ref().child('event_images/$filename');
-    final uploadTask = ref.putFile(image);
+    final metadata = SettableMetadata(
+      customMetadata: {'token': token},
+    );
+    final uploadTask = ref.putFile(image,metadata);
     final snapshot = await uploadTask.whenComplete(() {});
     return await snapshot.ref.getDownloadURL();
   } catch (error) {
       print('Error uploading image to Firebase Storage: $error');
-      rethrow; // Rethrow the error to handle it in the caller
+      rethrow; 
     }
   }
   Future<UserCredential?> signInAnonymously() async {

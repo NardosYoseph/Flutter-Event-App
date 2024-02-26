@@ -1,5 +1,6 @@
 import 'package:event_app/app/models/user/userModel.dart';
 import 'package:event_app/app/services/userService/auth_services.dart';
+import 'package:event_app/app/view/event/pages/home_page.dart';
 import 'package:event_app/app/view/event/widgets/snackbar.dart';
 import 'package:get/get.dart';
 
@@ -13,7 +14,7 @@ final AuthService _authService = AuthService(); // Create an instance of AuthSer
       // Call the registerUser method from AuthService
       final success = await _authService.login(email, password);
       print(success);
-    Get.toNamed("/homepage");
+      Get.offAll(HomePage());
         } catch (error) {
       // Handle any exceptions
       print('Error logging user: $error');
@@ -24,7 +25,7 @@ final AuthService _authService = AuthService(); // Create an instance of AuthSer
    try {
       // Call the registerUser method from AuthService
       final success = await _authService.register(user);
-      if (success) {
+      if (success!=null) {
       Get.toNamed("/login");
       } else {
         CustomSnackBar(message: 'invalid username or password');

@@ -7,8 +7,6 @@ import 'package:firebase_storage/firebase_storage.dart' ;
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'firebase_options.dart';
 void main() async{
-
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,);
@@ -22,7 +20,6 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Your App Name',
       theme: ThemeData(
-        
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,

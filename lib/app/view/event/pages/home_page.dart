@@ -18,9 +18,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TextEditingController SearchController =TextEditingController();
+  
   List<Event> events = [];
 
-  final AuthController controller = Get.find();
+  final AuthController controller = Get.put(AuthController());
   final EventController eventController = Get.put(EventController());
    @override
   void initState() {
@@ -69,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                       scrollDirection: Axis.horizontal,
                       itemCount: events.length,
                       itemBuilder: (context, index) {
-                        return MyCard(description: events[index].description,image: events[index].image,);
+                        return MyCard(event: events[index]);
                       }
                     ),
                ),
@@ -92,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                     scrollDirection: Axis.vertical,
                     itemCount: events.length,
                     itemBuilder: (context, index) {
-                      return MyCard(description: events[index].description,image: events[index].image,);
+                      return MyCard(event: events[index],);
                     }
                   ),
                 )

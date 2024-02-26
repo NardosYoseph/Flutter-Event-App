@@ -56,4 +56,13 @@ class Event {
   ));
     return formData;
   }
+
+Map<String, dynamic> toJson() => {
+    'description': description,
+    'date': date.toIso8601String(), 
+    'time': time,
+    'image': image,
+    'rate': rate,
+    'people': people,
+  };
 }

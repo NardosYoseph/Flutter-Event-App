@@ -1,4 +1,5 @@
 
+import 'package:event_app/app/models/event/eventModel.dart';
 import 'package:event_app/app/view/auth/pages/login_page.dart';
 import 'package:event_app/app/view/auth/pages/registration_page.dart';
 import 'package:event_app/app/view/event/pages/create_event_page.dart';

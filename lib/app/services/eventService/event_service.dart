@@ -8,11 +8,16 @@ import 'package:dio/dio.dart' ;
 
 
 class EventService{
-  Future<bool> createEvent(Event event) async {
+  Future<bool?> createEvent(Event event) async {
       print(event.image);
-    // final formData = await event.toFormData();
-    final response = await ApiHandler().post("/event/create", event);
-    return response;
+   
+    final response = await ApiHandler().post("/event/create", event.toJson());
+       if (response is bool) {
+      return response;
+    } else if (response is Map<String, dynamic>) {
+      return response['success'] == true;
+    }
+    return null;
   }
 
   Future<List<Event>> fetchEvent() async {
@@ -26,7 +31,6 @@ class EventService{
   } else {
     throw Exception('Failed to fetch events');
   }
-    return response;
   }
 }
 

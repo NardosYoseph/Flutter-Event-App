@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
 
-class PasswordTextField extends StatelessWidget {
+class PasswordTextField extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
 
-  const PasswordTextField({
+   PasswordTextField({
     Key? key,
     required this.controller,
     this.hintText = 'Password',
   }) : super(key: key);
+
+  @override
+  State<PasswordTextField> createState() => _PasswordTextFieldState();
+}
+
+class _PasswordTextFieldState extends State<PasswordTextField> {
+ bool _isObscure = true;
+
+   void _togglePasswordVisibility() {
+    setState(() {
+      _isObscure = !_isObscure;
+    });
+  }
 
  String? _validatePassword(String? value) {
     if (value == null || value.isEmpty) {
@@ -19,20 +32,26 @@ class PasswordTextField extends StatelessWidget {
     }
     return null; // Return null if validation passes
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 50,
       width: 350,
       child: TextFormField(
-        controller: controller,
-        obscureText: true, // Hides the entered text
+        controller: widget.controller,
+        obscureText: _isObscure, // Hides the entered text
         decoration: InputDecoration(
-          hintText: hintText,
+          hintText: widget.hintText,
+          suffixIcon: IconButton(
+            icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
+            onPressed: _togglePasswordVisibility,
+          ),
                fillColor: Colors.white,
                filled: true,
          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white,width: 3),borderRadius: BorderRadius.circular(10)),
         ),
+        
         validator:  _validatePassword,
       ),
     );
