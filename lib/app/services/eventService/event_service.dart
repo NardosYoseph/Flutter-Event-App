@@ -32,6 +32,16 @@ class EventService{
     throw Exception('Failed to fetch events');
   }
   }
+  Future<Event> fetchEventbyID(String? eventID) async {
+    final response = await ApiHandler().get("/event/$eventID");
+    print(response);
+    if (response.containsKey('event')) {
+    Event event = Event.fromJson(response['event']);
+    return event;
+  } else {
+    throw Exception('Failed to fetch events');
+  }
+  }
 }
 
 

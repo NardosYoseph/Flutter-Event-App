@@ -32,7 +32,10 @@ class ApiHandler {
     headers = headers ?? {'Content-Type': 'application/json'};
   } else {
     headers = _authorizationHeader;
-    headers.addAll(headers ?? {'Content-Type': 'application/json'});
+    headers.addAll(headers);
+    headers.addAll({'Content-Type': 'application/json'});
+
+
   }
     final response = await http.post(
       Uri.parse('$_baseUrl$endpoint'),

@@ -3,6 +3,7 @@ import 'package:event_app/app/models/event/eventModel.dart';
 import 'package:event_app/app/utils/text_util.dart';
 import 'package:event_app/app/view/event/widgets/card.dart';
 import 'package:event_app/app/view/event/widgets/fields/search_bar.dart';
+import 'package:event_app/app/view/event/widgets/menu_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -40,7 +41,18 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(actions: const [Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [CircleAvatar(
+                  radius: 20,
+                  backgroundImage: NetworkImage( "https://static.vecteezy.com/system/resources/previews/012/324/470/large_2x/half-body-20s-asian-woman-wear-formal-suit-blazer-shirt-dress-black-long-straight-hair-female-feel-happy-smile-fashion-vintage-poses-profile-look-at-camera-over-black-background-isolated-photo.jpg")
+                      
+                ),
+                SizedBox(width: 15,)],
+                )
+                ],),
+         drawer: MySidebar(),
+         
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Padding(
@@ -50,9 +62,8 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                  Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.end,
                    children: [
-                     SearchTextField(controller: SearchController),
                     IconButton(onPressed: (){Get.toNamed("/createEvent");}, icon: Icon(Icons.add,size: 35,color: Colors.black,)),
                    ],
                  ),
@@ -84,8 +95,11 @@ class _HomePageState extends State<HomePage> {
                       text: "All",
                       color: Colors.black,
                     ),
+                     SearchTextField(controller: SearchController),
+
                   ],
                 ),
+                SizedBox(height: 5,),
                 SizedBox(
                   width: 200,
                   height: 350,

@@ -21,7 +21,7 @@ class EventView extends StatelessWidget {
           const Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text("+12 people"),
+              Text("+12 people",style: TextStyle(fontWeight: FontWeight.bold),),
               SizedBox(width: 15,),
               SizedBox(
                 width: 150,
@@ -29,11 +29,6 @@ class EventView extends StatelessWidget {
                   alignment: AlignmentDirectional.centerEnd,
                   children: [
                   CircleAvatar(foregroundImage: NetworkImage( "https://firebasestorage.googleapis.com/v0/b/event-app-67384.appspot.com/o/event_images%2F1708773237190.jpg?alt=media&token=09286eed-b14b-4bf2-a159-79528a5ad740"),)
-                //  ,Positioned(
-                //           left: 20, // Adjust the position as needed
-                //           child:  CircleAvatar(foregroundImage: NetworkImage( "https://firebasestorage.googleapis.com/v0/b/event-app-67384.appspot.com/o/event_images%2F1708773237190.jpg?alt=media&token=09286eed-b14b-4bf2-a159-79528a5ad740"),),
-                 
-                //         )
                 ,
                         Positioned(
                           left: 35, // Adjust the position as needed
@@ -48,7 +43,6 @@ class EventView extends StatelessWidget {
                          Positioned(
                           left: 65, // Adjust the position as needed
                           child:  CircleAvatar(foregroundImage: NetworkImage( "https://firebasestorage.googleapis.com/v0/b/event-app-67384.appspot.com/o/event_images%2F1708773237190.jpg?alt=media&token=09286eed-b14b-4bf2-a159-79528a5ad740"),),
-                 
                         ),
                  
                   ],),

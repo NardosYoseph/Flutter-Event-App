@@ -27,12 +27,10 @@ final FirebaseStorage storage = FirebaseStorage.instance;
       final imageUrl = await _uploadImageToFirebaseStorage(image!,user.uid);
 
        final updatedEvent = Event(
-        // Copy the properties from the original event
-        // and update the image property with the imageUrl
         description: event.description,
         date: event.date,
         time: event.time,
-        image: imageUrl, // Updated image URL
+        image: imageUrl, 
         rate: event.rate,
         people: event.people,
       );
@@ -46,7 +44,6 @@ final FirebaseStorage storage = FirebaseStorage.instance;
       }
     } catch (error) {
       CustomSnackBar(message: 'Error ctreating Event');
-
       print('controller Error adding event: $error');
     }
   }
@@ -63,7 +60,17 @@ final FirebaseStorage storage = FirebaseStorage.instance;
       return [];
     }
   }
-}
+
+ Future<Event?> fetchEventbyID(String? eventID) async {
+   try {
+      final response = await _eventService.fetchEventbyID(eventID);
+     return response;
+    } catch (error) {
+      print('Error fetching event: $error');
+      return null;
+    }
+  }
+
 Future<String> _uploadImageToFirebaseStorage(File image,String token) async {
     try {
     final filename = '${DateTime.now().millisecondsSinceEpoch}.jpg';
@@ -88,4 +95,4 @@ Future<String> _uploadImageToFirebaseStorage(File image,String token) async {
     print('Error signing in anonymously: $e');
     return null;
   }
-}
+}}
