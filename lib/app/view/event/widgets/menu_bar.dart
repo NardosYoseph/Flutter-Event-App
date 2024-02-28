@@ -13,26 +13,21 @@ class MySidebar extends StatelessWidget { // Path to your user image asset
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          // Drawer header with user information
           const DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.white, // Customize header color
+              color: Colors.white,
             ),
             child: Column(
               children: [
-                // User picture
                 CircleAvatar(
                   radius: 40,
                   backgroundImage: NetworkImage( "https://static.vecteezy.com/system/resources/previews/012/324/470/large_2x/half-body-20s-asian-woman-wear-formal-suit-blazer-shirt-dress-black-long-straight-hair-female-feel-happy-smile-fashion-vintage-poses-profile-look-at-camera-over-black-background-isolated-photo.jpg")
                       
                 ),
-               // const SizedBox(height: 10),
-                // Username
                 Text(
                   "Nardos Yosef",
                   style: TextStyle(fontSize: 18, color: Colors.black),
                 ),
-                // Email address
                 Text(
                   "nardosyosef123@gmail.com",
                   style: TextStyle(fontSize: 14, color: Colors.black),

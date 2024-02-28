@@ -29,6 +29,29 @@ class AuthService {
     
   }
 
+ Future<List<User>> fetchUsers() async {
+    final response = await ApiHandler().get("/user/allUSers");
+    if (response.containsKey('userList')) {
+    List<User> users = (response['userList'] as List<dynamic>)
+        .map((json) => User.fromJson(json))
+        .toList();
+    return users;
+     } else {
+    throw Exception('Failed to fetch users');
+  }
+  }
+
+   Future<User> fetchUserbyID(String? id) async {
+    final response = await ApiHandler().get("/user/allUSers/$id");
+    if (response.containsKey('user')) {
+    User user = User.fromJson(response);
+    return user;
+     } else {
+    throw Exception('Failed to fetch users');
+  }
+  }
+
+
   Future<void> logout() async {
     // Make a DELETE request to the logout endpoint
     await http.delete(Uri.parse('$eventsApiUrl/logout'));

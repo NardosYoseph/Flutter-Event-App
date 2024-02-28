@@ -39,5 +39,18 @@ final AuthService _authService = AuthService(); // Create an instance of AuthSer
 
   void logout() {
   }
+
+
+  Future<List<User>> fetchUsers() async {
+     try {
+      final success = await _authService.fetchUsers();
+      print(success);
+      return success;
+        } catch (error) {
+      print('Error logging user: $error');
+      return [];
+    }
+  }
+
 }
 
