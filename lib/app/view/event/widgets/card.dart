@@ -15,17 +15,17 @@ EventController eventController= Get.put(EventController());
       onTap: () {
         eventController.fetchEventbyID(event!.id);
 Get.toNamed('/event_view');
-
       },
+      
       child: Container(
         height: 200,
         width: 200,
         child: Card(
-          
           //elevation: 10,
            shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10), 
           ),
+
           child: Stack(
             alignment: AlignmentDirectional.bottomStart,
             children:[ 

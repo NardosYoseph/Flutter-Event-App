@@ -1,8 +1,12 @@
+import 'package:event_app/app/controllers/event_controllers/event_controller.dart';
 import 'package:event_app/app/models/event/eventModel.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class EventView extends StatelessWidget {
    EventView({super.key});
+
+   EventController eventController= Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -15,15 +19,15 @@ class EventView extends StatelessWidget {
           Container(
             height: 300,
             width: double.infinity,
-            child: Image.network( "https://firebasestorage.googleapis.com/v0/b/event-app-67384.appspot.com/o/event_images%2F1708773237190.jpg?alt=media&token=09286eed-b14b-4bf2-a159-79528a5ad740",fit: BoxFit.cover,),
-          ),
+            child: Image.network(eventController.singleEvent!.image)
+            ),
           SizedBox(height: 15,),
-          const Row(
+           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text("+12 people",style: TextStyle(fontWeight: FontWeight.bold),),
+              Text(eventController.singleEvent!.people as String,style: TextStyle(fontWeight: FontWeight.bold),),
               SizedBox(width: 15,),
-              SizedBox(
+              const SizedBox(
                 width: 150,
                 child: Stack(
                   alignment: AlignmentDirectional.centerEnd,

@@ -46,7 +46,6 @@ class _HomePageState extends State<HomePage> {
           children: [CircleAvatar(
                   radius: 20,
                   backgroundImage: NetworkImage( "https://static.vecteezy.com/system/resources/previews/012/324/470/large_2x/half-body-20s-asian-woman-wear-formal-suit-blazer-shirt-dress-black-long-straight-hair-female-feel-happy-smile-fashion-vintage-poses-profile-look-at-camera-over-black-background-isolated-photo.jpg")
-                      
                 ),
                 SizedBox(width: 15,)],
                 )
@@ -82,6 +81,7 @@ class _HomePageState extends State<HomePage> {
                       itemCount: events.length,
                       itemBuilder: (context, index) {
                         return MyCard(event: events[index]);
+
                       }
                     ),
                ),
@@ -96,7 +96,6 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.black,
                     ),
                      SearchTextField(controller: SearchController),
-
                   ],
                 ),
                 SizedBox(height: 5,),
@@ -107,7 +106,9 @@ class _HomePageState extends State<HomePage> {
                     scrollDirection: Axis.vertical,
                     itemCount: events.length,
                     itemBuilder: (context, index) {
-                      return MyCard(event: events[index],);
+                      return GestureDetector(
+                        onTap: (){eventController.fetchEventbyID(events[index].id);},
+                        child: MyCard(event: events[index]));
                     }
                   ),
                 )

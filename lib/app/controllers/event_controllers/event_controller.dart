@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'package:path/path.dart' as path;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_core/firebase_core.dart';
@@ -15,6 +16,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class EventController extends GetxController{
 final EventService _eventService= EventService();
 final FirebaseStorage storage = FirebaseStorage.instance;
+ Event? singleEvent;
 
   Future<void> CreateEvent(BuildContext context,Event event,File? image) async {
    try {
@@ -52,7 +54,6 @@ final FirebaseStorage storage = FirebaseStorage.instance;
    try {
       // Call the registerUser method from AuthService
       final response = await _eventService.fetchEvent();
-      
      return response;
     } catch (error) {
       // Handle any exceptions
@@ -64,6 +65,7 @@ final FirebaseStorage storage = FirebaseStorage.instance;
  Future<Event?> fetchEventbyID(String? eventID) async {
    try {
       final response = await _eventService.fetchEventbyID(eventID);
+      singleEvent=response;
      return response;
     } catch (error) {
       print('Error fetching event: $error');
