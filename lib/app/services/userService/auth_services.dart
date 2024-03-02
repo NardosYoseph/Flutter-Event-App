@@ -11,7 +11,7 @@ class AuthService {
   Future<Object> login(String email, String password) async {
     final prefs = await SharedPreferences.getInstance();
     final response = await ApiHandler().post("/user/login",{"email":email,"password":password});
-    await prefs.setString('token', response['token']);
+    await prefs.setString('token', response['token']['accessToken']);
     String? token= prefs.getString('token');
     ApiHandler().setAuthorization(token!);
       return response;

@@ -45,8 +45,11 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [CircleAvatar(
                   radius: 20,
-                  backgroundImage: NetworkImage( "https://static.vecteezy.com/system/resources/previews/012/324/470/large_2x/half-body-20s-asian-woman-wear-formal-suit-blazer-shirt-dress-black-long-straight-hair-female-feel-happy-smile-fashion-vintage-poses-profile-look-at-camera-over-black-background-isolated-photo.jpg")
+                  backgroundImage: AssetImage( "assets/profile.png")
+                
                 ),
+                SizedBox(width: 10,),
+                Icon(Icons.notifications),
                 SizedBox(width: 15,)],
                 )
                 ],),

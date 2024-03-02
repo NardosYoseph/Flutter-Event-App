@@ -8,20 +8,24 @@ import 'package:flutter/material.dart';
 
 class Event {
   final String? id;
+  final String title;
   final String description;
   final DateTime date;
   final String time;
   final double rate;
-  final int people;
+  final int? totalTickets;
+  final int? paidTickets;
   final String image;
 
   Event({
     this.id,
+    required this.title,
     required this.description,
     required this.date,
     required this.time,
     required this.rate,
-    required this.people,
+    required this.totalTickets,
+    required this.paidTickets,
     required this.image,
 
   });
@@ -30,12 +34,15 @@ class Event {
   factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
       id: json['_id'],
+      title: json['title'],
       description: json['description'],
       date: DateTime.parse(json['date']),
       time: json['time'],
       image: json['image'],
       rate: json['rate'].toDouble(),
-      people: json['people'],
+      totalTickets: json['totalTickets'],
+      paidTickets: json['paidTickets'],
+      
     );
   }
 
@@ -62,11 +69,13 @@ class Event {
 
 Map<String, dynamic> toJson() => {
   '_id': id,
+  'title':title,
     'description': description,
     'date': date.toIso8601String(), 
     'time': time,
     'image': image,
     'rate': rate,
-    'people': people,
+    'totalTickets': totalTickets,
+    'paidTickets' : paidTickets
   };
 }

@@ -3,6 +3,7 @@ import 'package:dio/dio.dart'as dio;
 import 'package:event_app/app/controllers/event_controllers/event_controller.dart';
 import 'package:event_app/app/models/event/eventModel.dart';
 import 'package:event_app/app/view/event/widgets/fields/event_description_field.dart';
+import 'package:event_app/app/view/event/widgets/fields/event_title_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -14,9 +15,12 @@ class EventForm extends StatefulWidget {
 }
 
 class _EventFormState extends State<EventForm> {
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   EventController eventController = Get.put(EventController());
   TextEditingController descriptionController = TextEditingController();
+  TextEditingController titleController = TextEditingController();
+
   String _convertTimeOfDayToString(TimeOfDay timeOfDay) {
   final now = DateTime.now();
   final time = DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
@@ -28,7 +32,7 @@ class _EventFormState extends State<EventForm> {
   late TimeOfDay _timeOfDay;
   double _rate = 0;
   File? _image ;
-  late int _people;
+  late int _totalTickets;
 
   @override
   void initState() {
@@ -36,7 +40,7 @@ class _EventFormState extends State<EventForm> {
     // Initialize default values
     _date = DateTime.now();
     _timeOfDay = TimeOfDay.now();
-    _people = 0;
+    _totalTickets = 0;
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -74,6 +78,7 @@ class _EventFormState extends State<EventForm> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -82,6 +87,9 @@ class _EventFormState extends State<EventForm> {
         key: _formKey,
         child: ListView(
           children: <Widget>[
+            EventTitleField(
+                controller: titleController,
+                title: titleController.text),
             EventDescriptionField(
                 controller: descriptionController,
                 description: descriptionController.text),
@@ -134,7 +142,7 @@ class _EventFormState extends State<EventForm> {
                 // Implement validation logic if needed
                 return null;
               },
-              onSaved: (value) => _people = int.parse(value!),
+              onSaved: (value) => _totalTickets = int.parse(value!),
             ),
             SizedBox(height: 20),
             ElevatedButton(
@@ -143,12 +151,14 @@ class _EventFormState extends State<EventForm> {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
                   Event event = Event(
+                    title: titleController.text,
                       description: descriptionController.text,
                       date: _date,
                       time: _time,
                       image: _image!.path,
                       rate: _rate,
-                      people: _people);
+                      totalTickets: _totalTickets,
+                      paidTickets: 0);
 
                   eventController.CreateEvent(context,event,_image );
                 }

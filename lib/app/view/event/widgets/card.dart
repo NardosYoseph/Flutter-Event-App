@@ -37,7 +37,7 @@ Get.toNamed('/event_view');
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextUtil(text: event!.description),
+            TextUtil(text: event!.title),
         const Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [

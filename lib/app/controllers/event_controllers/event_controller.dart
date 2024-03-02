@@ -29,12 +29,14 @@ final FirebaseStorage storage = FirebaseStorage.instance;
       final imageUrl = await _uploadImageToFirebaseStorage(image!,user.uid);
 
        final updatedEvent = Event(
+        title: event.title,
         description: event.description,
         date: event.date,
         time: event.time,
         image: imageUrl, 
         rate: event.rate,
-        people: event.people,
+        totalTickets: event.totalTickets,
+        paidTickets: event.paidTickets
       );
       final success = await _eventService.createEvent(updatedEvent);
       if (success!=null) {
