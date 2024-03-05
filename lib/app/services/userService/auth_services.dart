@@ -5,15 +5,16 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/constants.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthService {
 
   Future<Object> login(String email, String password) async {
-    final prefs = await SharedPreferences.getInstance();
+    final storage = FlutterSecureStorage();
     final response = await ApiHandler().post("/user/login",{"email":email,"password":password});
-    await prefs.setString('token', response['token']['accessToken']);
-    String? token= prefs.getString('token');
-    ApiHandler().setAuthorization(token!);
+    final accessToken = response['token']['accessToken'];
+    await storage.write(key: 'token', value: accessToken);
+    ApiHandler().setAuthorization(accessToken!);
       return response;
   }
 
