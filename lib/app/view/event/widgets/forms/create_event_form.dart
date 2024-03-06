@@ -3,6 +3,7 @@ import 'package:dio/dio.dart'as dio;
 import 'package:event_app/app/controllers/event_controllers/event_controller.dart';
 import 'package:event_app/app/models/event/eventModel.dart';
 import 'package:event_app/app/view/event/widgets/fields/event_description_field.dart';
+import 'package:event_app/app/view/event/widgets/fields/event_price_field.dart';
 import 'package:event_app/app/view/event/widgets/fields/event_title_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,7 @@ class _EventFormState extends State<EventForm> {
   EventController eventController = Get.put(EventController());
   TextEditingController descriptionController = TextEditingController();
   TextEditingController titleController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
 
   String _convertTimeOfDayToString(TimeOfDay timeOfDay) {
   final now = DateTime.now();
@@ -135,6 +137,10 @@ class _EventFormState extends State<EventForm> {
                     
             ),
             SizedBox(height: 20),
+             EventPriceField(
+                controller: priceController,
+                price: priceController.text),
+            SizedBox(height: 20),
             TextFormField(
               decoration: InputDecoration(labelText: 'maximum People'),
               keyboardType: TextInputType.number,
@@ -157,6 +163,7 @@ class _EventFormState extends State<EventForm> {
                       time: _time,
                       image: _image!.path,
                       rate: _rate,
+                      price: double.parse(priceController.text),
                       totalTickets: _totalTickets,
                       paidTickets: 0);
 

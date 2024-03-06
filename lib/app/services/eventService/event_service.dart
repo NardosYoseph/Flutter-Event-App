@@ -37,6 +37,7 @@ class EventService{
     print(response);
     if (response.containsKey('event')) {
     Event event = Event.fromJson(response['event']);
+    
     return event;
   } else {
     throw Exception('Failed to fetch events');

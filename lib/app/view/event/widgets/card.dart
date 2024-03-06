@@ -11,46 +11,39 @@ final Event? event;
 EventController eventController= Get.put(EventController());
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        eventController.fetchEventbyID(event!.id);
-Get.toNamed('/event_view');
-      },
-      
-      child: Container(
-        height: 200,
-        width: 200,
-        child: Card(
-          //elevation: 10,
-           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10), 
-          ),
-
-          child: Stack(
-            alignment: AlignmentDirectional.bottomStart,
-            children:[ 
-            ClipRRect(
-            
-              borderRadius: BorderRadius.circular(10),
-           child: Image.network(event!.image,fit: BoxFit.fitHeight,width: 200,height: 200,)),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextUtil(text: event!.title),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-          Icon(Icons.star,color: Color.fromARGB(255, 245, 189, 3),),
-          Icon(Icons.star,color: Color.fromARGB(255, 245, 189, 3),),
-          Icon(Icons.star,color: Color.fromARGB(255, 245, 189, 3),),
-          Icon(Icons.star,color: Color.fromARGB(255, 245, 189, 3),),
-          Icon(Icons.star,color: Color.fromARGB(255, 245, 189, 3),),
-        ],)
-         ],
+    return Container(
+      height: 200,
+      width: 200,
+      child: Card(
+        //elevation: 10,
+         shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10), 
         ),
-        ]),
-        ),
+    
+        child: Stack(
+          alignment: AlignmentDirectional.bottomStart,
+          children:[ 
+          ClipRRect(
+          
+            borderRadius: BorderRadius.circular(10),
+         child: Image.network(event!.image,fit: BoxFit.fitHeight,width: 200,height: 200,)),
+      Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextUtil(text: event!.title),
+      const Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+        Icon(Icons.star,color: Color.fromARGB(255, 245, 189, 3),),
+        Icon(Icons.star,color: Color.fromARGB(255, 245, 189, 3),),
+        Icon(Icons.star,color: Color.fromARGB(255, 245, 189, 3),),
+        Icon(Icons.star,color: Color.fromARGB(255, 245, 189, 3),),
+        Icon(Icons.star,color: Color.fromARGB(255, 245, 189, 3),),
+      ],)
+       ],
+      ),
+      ]),
       ),
     );
   }

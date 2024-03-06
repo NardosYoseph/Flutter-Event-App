@@ -1,5 +1,12 @@
+import 'dart:io';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:event_app/app/controllers/event_controllers/event_controller.dart';
+import 'package:event_app/app/controllers/payment_controller/chapaPaymentController.dart';
 import 'package:event_app/app/models/event/eventModel.dart';
+import 'package:event_app/app/models/payment/paymentModel.dart';
+import 'package:event_app/app/routes/app_routes.dart';
+import 'package:event_app/app/utils/constants.dart';
+import 'package:event_app/app/view/event/pages/home_page.dart';
 import 'package:event_app/app/view/event/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +15,7 @@ class EventView extends StatelessWidget {
   EventView({super.key});
 
   EventController eventController = Get.find();
+  PaymentController paymentController = Get.put(PaymentController());
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +25,12 @@ class EventView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Container(
-                height: 300,
-                width: double.infinity,
-                child: Image.network(eventController.singleEvent!.image)),
+             Container(
+                    height: 300,
+                    width: double.infinity,
+                    child: Image.network("https://firebasestorage.googleapis.com/v0/b/event-app-67384.appspot.com/o/event_images%2F1709687912958.jpg?alt=media&token=c47234f2-db8f-416a-96bc-dc017fe75610"),
+                  )
+              ,
             SizedBox(
               height: 15,
             ),
@@ -81,14 +91,13 @@ class EventView extends StatelessWidget {
             ),
             const SizedBox(
               height: 15,
-            ),
-            Text("   "+eventController.singleEvent!.description,style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),), 
+            ),Text("Seminar",style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold)), 
                Row(
               children: [
                 SizedBox(
                   width: 15,
                 ),
-                Text("Event detain decription Event detain decription\nEvent detain decription Event detain decription\nEvent detain decriptionEvent detain decription "),
+                Text("Event detail decription Event detail decription\nEvent detail decription Event detail decription\nEvent detail decriptionEvent detail decription "),
              
               ],
             ),
@@ -111,7 +120,7 @@ class EventView extends StatelessWidget {
                     
                     child: Icon(Icons.calendar_month_rounded,size: 30,))
                 ,SizedBox(width: 10,)
-                ,Text(eventController.singleEvent!.date.toIso8601String().toString(),style: TextStyle(fontSize: 18))],),
+                , Text("2024.3.24",style: TextStyle(fontSize: 18))],),
              
              SizedBox(height: 10,),
               Row(
@@ -128,8 +137,7 @@ class EventView extends StatelessWidget {
                     
                     child: Icon(Icons.attach_money,size: 30,))
                 ,SizedBox(width: 10,)
-                
-                ,Text("200 birr",style: TextStyle(fontSize: 18))],),
+                ,Text("500",style:TextStyle(fontSize: 18))],),
                 SizedBox(height: 10,),
 
                 Text("Rate this event",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
@@ -151,7 +159,19 @@ class EventView extends StatelessWidget {
                 ],),
                 SizedBox(height: 20,),
 
-                CustomizedButton(text: "Get ticket", onPressed: (){})
+                CustomizedButton(text: "Get ticket", onPressed: () async {
+                  Payment payment=Payment(
+                    amount:"500", 
+                    currency: "ETB", 
+                    tx_ref: DateTime.now().millisecondsSinceEpoch.toString(), 
+                    callback_url: "$eventsApiUrl/verifyPayment",);
+                   String paymentUrl = await paymentController.makePayment(payment);
+    
+    // Redirect to the returned URL page
+    launchUrl(Uri.parse(paymentUrl));
+                }),
+                
+
             
             ],
                         )

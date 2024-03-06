@@ -110,7 +110,10 @@ class _HomePageState extends State<HomePage> {
                     itemCount: events.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
-                        onTap: (){eventController.fetchEventbyID(events[index].id);},
+                        onTap: ()  { 
+                          eventController.fetchEventbyID(events[index].id);
+                          Get.toNamed('/event_view');
+                        },
                         child: MyCard(event: events[index]));
                     }
                   ),

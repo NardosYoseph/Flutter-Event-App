@@ -1,10 +1,4 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
-import 'package:dio/dio.dart';
-import 'package:path/path.dart';
-import 'package:flutter/material.dart';
+
 
 class Event {
   final String? id;
@@ -13,6 +7,7 @@ class Event {
   final DateTime date;
   final String time;
   final double rate;
+  final double price;
   final int? totalTickets;
   final int? paidTickets;
   final String image;
@@ -24,6 +19,7 @@ class Event {
     required this.date,
     required this.time,
     required this.rate,
+    required this.price,
     required this.totalTickets,
     required this.paidTickets,
     required this.image,
@@ -40,6 +36,7 @@ class Event {
       time: json['time'],
       image: json['image'],
       rate: json['rate'].toDouble(),
+    price: json['price'] != null ? json['price'].toDouble() : 0.0,
       totalTickets: json['totalTickets'],
       paidTickets: json['paidTickets'],
       
@@ -75,6 +72,7 @@ Map<String, dynamic> toJson() => {
     'time': time,
     'image': image,
     'rate': rate,
+    'price': price,
     'totalTickets': totalTickets,
     'paidTickets' : paidTickets
   };

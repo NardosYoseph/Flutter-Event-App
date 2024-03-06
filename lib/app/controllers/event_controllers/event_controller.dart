@@ -16,7 +16,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class EventController extends GetxController{
 final EventService _eventService= EventService();
 final FirebaseStorage storage = FirebaseStorage.instance;
-  Event? singleEvent;
+  Event? singleEvent=null;
 
   Future<void> CreateEvent(BuildContext context,Event event,File? image) async {
    try {
@@ -35,6 +35,7 @@ final FirebaseStorage storage = FirebaseStorage.instance;
         time: event.time,
         image: imageUrl, 
         rate: event.rate,
+        price: event.price,
         totalTickets: event.totalTickets,
         paidTickets: event.paidTickets
       );
