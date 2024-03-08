@@ -33,7 +33,8 @@ class EventService{
   }
   }
   Future<Event> fetchEventbyID(String? eventID) async {
-    final response = await ApiHandler().get("/event/event?$eventID");
+    print(eventID);
+    final response = await ApiHandler().post("/event/event",{"id":eventID});
     print(response);
     if (response.containsKey('event')) {
     Event event = Event.fromJson(response['event']);

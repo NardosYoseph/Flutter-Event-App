@@ -5,13 +5,12 @@ import 'package:get/get.dart';
 
 class PaymentController extends GetxController{
 final ChapaPaymentService _paymentService= ChapaPaymentService();
-
+String? paymentUrl;
 Future<dynamic> makePayment(Payment payment) async {
    try {
-      final response = await _paymentService.makePayment(payment);
-      response;
-      print(response);
-     return response;
+       paymentUrl = await _paymentService.makePayment(payment);
+      print(paymentUrl);
+     return paymentUrl;
     } catch (error) {
       print('Error making payment: $error');
       return null;

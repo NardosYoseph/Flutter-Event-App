@@ -2,6 +2,7 @@ import 'package:event_app/app/controllers/event_controllers/event_controller.dar
 import 'package:event_app/app/models/event/eventModel.dart';
 import 'package:event_app/app/utils/text_util.dart';
 import 'package:event_app/app/view/event/widgets/card.dart';
+import 'package:event_app/app/view/event/widgets/event_organizers_card.dart';
 import 'package:event_app/app/view/event/widgets/fields/search_bar.dart';
 import 'package:event_app/app/view/event/widgets/menu_bar.dart';
 import 'package:flutter/foundation.dart';
@@ -70,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                    ],
                  ),
                 TextUtil(
-                  text: "Recent Events",
+                  text: "Event Organizers",
                   color: Colors.black,
                   size: 16,
                 ),
@@ -81,9 +82,9 @@ class _HomePageState extends State<HomePage> {
                 height: 200,
                  child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: events.length,
+                      itemCount: 4,
                       itemBuilder: (context, index) {
-                        return MyCard(event: events[index]);
+                        return EventOrganizersCard();
 
                       }
                     ),
@@ -95,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     TextUtil(
-                      text: "All",
+                      text: "AllEvents",
                       color: Colors.black,
                     ),
                      SearchTextField(controller: SearchController),
@@ -110,9 +111,13 @@ class _HomePageState extends State<HomePage> {
                     itemCount: events.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
-                        onTap: ()  { 
-                          eventController.fetchEventbyID(events[index].id);
-                          Get.toNamed('/event_view');
+                        onTap: ()  async { 
+                          
+                     Event? event=  await eventController.fetchEventbyID(events[index].id);
+                       print(event!.title);
+ 
+                             Get.toNamed('/event_view');
+   
                         },
                         child: MyCard(event: events[index]));
                     }
