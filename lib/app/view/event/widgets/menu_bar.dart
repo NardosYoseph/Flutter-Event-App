@@ -1,9 +1,13 @@
+
+import 'package:event_app/app/controllers/user_conrollers/user_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // for user image
+import 'package:flutter/services.dart';
+import 'package:get/get.dart'; // for user image
 
 class MySidebar extends StatelessWidget { // Path to your user image asset
+  UserController userController = Get.find<UserController>();
 
-  const MySidebar({
+   MySidebar({
     super.key,
   });
 
@@ -13,7 +17,7 @@ class MySidebar extends StatelessWidget { // Path to your user image asset
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
+           DrawerHeader(
             decoration: BoxDecoration(
               color: Colors.white,
             ),
@@ -21,15 +25,14 @@ class MySidebar extends StatelessWidget { // Path to your user image asset
               children: [
                 CircleAvatar(
                   radius: 40,
-                  backgroundImage: NetworkImage( "https://static.vecteezy.com/system/resources/previews/012/324/470/large_2x/half-body-20s-asian-woman-wear-formal-suit-blazer-shirt-dress-black-long-straight-hair-female-feel-happy-smile-fashion-vintage-poses-profile-look-at-camera-over-black-background-isolated-photo.jpg")
-                      
+                  backgroundImage: AssetImage( "assets/profile.png"),
                 ),
                 Text(
-                  "Nardos Yosef",
+                  userController.singleUSer.username,
                   style: TextStyle(fontSize: 18, color: Colors.black),
                 ),
                 Text(
-                  "nardosyosef123@gmail.com",
+                  userController.singleUSer.email,
                   style: TextStyle(fontSize: 14, color: Colors.black),
                 ),
               ],
@@ -40,11 +43,7 @@ class MySidebar extends StatelessWidget { // Path to your user image asset
             title: const Text('My Events'),
             onTap: () => Navigator.pop(context), // Replace with your action
           ),
-          ListTile(
-            leading: const Icon(Icons.confirmation_number),
-            title: const Text('Event Tickets'),
-            onTap: () => Navigator.pop(context), // Replace with your action
-          ),
+         
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('Settings'),

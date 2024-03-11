@@ -11,39 +11,35 @@ final Event? event;
 EventController eventController= Get.put(EventController());
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 200,
-      width: 200,
-      child: Card(
-        //elevation: 10,
-         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10), 
-        ),
-    
-        child: Stack(
-          alignment: AlignmentDirectional.bottomStart,
-          children:[ 
-          ClipRRect(
-          
-            borderRadius: BorderRadius.circular(10),
-         child: Image.network(event!.image,fit: BoxFit.fitHeight,width: 200,height: 200,)),
-      Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+    return Card(
+      child: Container(
+        color: Color(0XFF509E3D),
+        height: 250,
+        width: double.infinity,
+        child: Column(
+          children:[ SizedBox(
+            width: double.infinity,
+            child: Image.network(event!.image,fit: BoxFit.fill,width: double.infinity,height: 200,)),
+              Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
           TextUtil(text: event!.title),
-      const Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-        Icon(Icons.star,color: Color.fromARGB(255, 245, 189, 3),),
-        Icon(Icons.star,color: Color.fromARGB(255, 245, 189, 3),),
-        Icon(Icons.star,color: Color.fromARGB(255, 245, 189, 3),),
-        Icon(Icons.star,color: Color.fromARGB(255, 245, 189, 3),),
-        Icon(Icons.star,color: Color.fromARGB(255, 245, 189, 3),),
-      ],)
-       ],
-      ),
-      ]),
+               Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                    Icon(Icons.attach_money_sharp,color: Color.fromARGB(255, 245, 189, 3),),
+
+                      TextUtil(text: event!.price.toString()),
+                    Icon(Icons.star,color: Color.fromARGB(255, 245, 189, 3),),
+                    Icon(Icons.star,color: Color.fromARGB(255, 245, 189, 3),),
+                    Icon(Icons.star,color: Color.fromARGB(255, 245, 189, 3),),
+                    Icon(Icons.star,color: Color.fromARGB(255, 245, 189, 3),),
+                    Icon(Icons.star,color: Color.fromARGB(255, 245, 189, 3),),
+              ],)
+               ],
+              ),]
+        ),
       ),
     );
   }
