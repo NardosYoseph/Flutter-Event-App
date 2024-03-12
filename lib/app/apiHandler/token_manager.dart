@@ -1,54 +1,103 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
+import 'package:http/http.dart' as http;
 
-import 'package:event_app/app/apiHandler/api_handler.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:http/http.dart';
+class TokenInterceptor implements http.BaseClient {
+  final http.Client _inner = http.Client();
+  late String _accessToken;
+  late String _refreshToken;
+  late String _refreshEndpoint;
 
-class TokenManager {
-  static final TokenManager _instance = TokenManager._internal();
-
-  factory TokenManager() {
-    return _instance;
+  TokenInterceptor(String accessToken, String refreshToken, String refreshEndpoint) {
+    _accessToken = accessToken;
+    _refreshToken = refreshToken;
+    _refreshEndpoint = refreshEndpoint;
   }
 
-  TokenManager._internal();
+  @override
+  Future<http.StreamedResponse> send(http.BaseRequest request) async {
+    // Add authorization header with access token to the request
+    request.headers['Authorization'] = 'Bearer $_accessToken';
 
-  Future<String> getAccessToken() async {
-    // Read access token from secure storage
-    final storedToken = await getSecureStorageItem('accessToken');
-    if (storedToken != null && !isAccessTokenExpired(storedToken)) {
-      return storedToken;
+    final response = await _inner.send(request);
+
+    // Check if the response indicates token expiration
+    if (response.statusCode == 401) {
+      // Refresh the token
+      await _refreshTokenIfNeeded();
+
+      // Retry the original request with the new token
+      request.headers['Authorization'] = 'Bearer $_accessToken';
+      return _inner.send(request);
     }
-    return await refreshToken();
+
+    return response;
   }
 
-  Future<String> refreshToken() async {
-    final refreshToken = await getSecureStorageItem('refreshToken');
-    final response = await ApiHandler().post("/refresh",{'refreshToken': refreshToken});
+  Future<void> _refreshTokenIfNeeded() async {
+    // Implement token refresh logic here
+    // For example:
+    // final response = await http.post(_refreshEndpoint, body: {'refresh_token': _refreshToken});
+    // final newAccessToken = response.body['access_token'];
+    // final newRefreshToken = response.body['refresh_token'];
+    // _accessToken = newAccessToken;
+    // _refreshToken = newRefreshToken;
 
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      final newAccessToken = data['accessToken'];
-      await setSecureStorageItem('accessToken', newAccessToken);
-      return newAccessToken;
-    } else {
-      // Handle refresh token failure (e.g., logout user)
-      throw Exception('Refresh token failed');
-    }
+    // Example:
+    // final response = await http.post(_refreshEndpoint, body: {'refresh_token': _refreshToken});
+    // final data = json.decode(response.body);
+    // _accessToken = data['access_token'];
   }
 
-  bool isAccessTokenExpired(String token) {
-    return true;
-    // Implement logic to check token expiry based on its format (e.g., JWT)
+  @override
+  void close() => _inner.close();
+
+  @override
+  Future<http.Response> delete(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding}) {
+    // TODO: implement delete
+    throw UnimplementedError();
   }
 
-  Future<String?> getSecureStorageItem(String key) async {
-    final storage = await FlutterSecureStorage();
-    return await storage.read(key: key);
+  @override
+  Future<http.Response> get(Uri url, {Map<String, String>? headers}) {
+    // TODO: implement get
+    throw UnimplementedError();
   }
 
-  Future<void> setSecureStorageItem(String key, String value) async {
-    final storage = await FlutterSecureStorage();
-    await storage.write(key: key, value: value);
+  @override
+  Future<http.Response> head(Uri url, {Map<String, String>? headers}) {
+    // TODO: implement head
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<http.Response> patch(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding}) {
+    // TODO: implement patch
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<http.Response> post(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding}) {
+    // TODO: implement post
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<http.Response> put(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding}) {
+    // TODO: implement put
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String> read(Uri url, {Map<String, String>? headers}) {
+    // TODO: implement read
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Uint8List> readBytes(Uri url, {Map<String, String>? headers}) {
+    // TODO: implement readBytes
+    throw UnimplementedError();
   }
 }
