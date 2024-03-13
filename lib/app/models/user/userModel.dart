@@ -1,12 +1,14 @@
+import 'package:event_app/app/models/event/eventModel.dart';
+
 class User {
   String? id;
   final String username;
  String? profilePicture;
   final String email;
   final String password;
-  final double tickets;
+  List<Event>? events;
 
-  User({ this.id,required this.username,this.profilePicture, required this.email,required this.password,required this.tickets});
+  User({ this.id,required this.username,this.profilePicture, required this.email,required this.password, this.events});
 
 Map<String, dynamic> toJson() => {
     "_id":id,
@@ -14,7 +16,7 @@ Map<String, dynamic> toJson() => {
     'profilePicture':profilePicture,
     'email': email, 
     'password': password,
-    'tickets': tickets
+    'events': events
   };
 
 factory User.fromJson(Map<String, dynamic> json) {
@@ -24,6 +26,6 @@ factory User.fromJson(Map<String, dynamic> json) {
       profilePicture: json['profilePicture'],
       email: json['email'],
       password: json['password'],
-      tickets: json['tickets']
+      events: json['tickets']
     );
   }}

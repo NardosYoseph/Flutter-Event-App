@@ -51,6 +51,7 @@ dependencies:
   flutter_secure_storage: ^9.0.0
   url_launcher: ^6.2.5
   webview_flutter: ^4.7.0
+  http_interceptor: ^2.0.0-beta.8
   
   # rive: ^0.12.4
 
