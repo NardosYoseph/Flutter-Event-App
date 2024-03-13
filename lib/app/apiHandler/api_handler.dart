@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:event_app/app/apiHandler/http_interceptor.dart';
+import 'package:event_app/app/apiHandler/token_manager.dart';
 import 'package:event_app/app/utils/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
@@ -19,7 +20,7 @@ class ApiHandler {
     _baseUrl = eventsApiUrl;
   }
 final client = InterceptedClient.build(
-  interceptors: [RefreshTokenInterceptor()],
+  interceptors: [RefreshTokenInterceptor(TokenManager())],
 );
  late String _baseUrl;
  Map<String, String> _authorizationHeader={};
@@ -29,7 +30,7 @@ final client = InterceptedClient.build(
     final response = await client.get(Uri.parse('$_baseUrl$endpoint'),headers: headers,);
     return _handleResponse(response);
   }
-  
+
 
   Future<dynamic> post(String endpoint, dynamic data, {Map<String, String>? headers}) async {
     print("$data");
