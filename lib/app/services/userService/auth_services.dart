@@ -13,8 +13,11 @@ class AuthService {
     final storage = FlutterSecureStorage();
     final response = await ApiHandler().post("/user/login",{"email":email,"password":password});
     final accessToken = response['token']['accessToken'];
-    await storage.write(key: 'token', value: accessToken);
-    ApiHandler().setAuthorization(accessToken!);
+    final refreshToken = response['token']['refreshToken'];
+
+    await storage.write(key: 'accessToken', value: accessToken);
+    await storage.write(key: 'refreshToken', value: refreshToken);
+   // ApiHandler().setAuthorization(accessToken!);
       return response;
   }
 

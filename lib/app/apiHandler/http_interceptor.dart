@@ -1,39 +1,34 @@
-// import 'package:event_app/app/apiHandler/token_manager.dart';
-// import 'package:http_interceptor/http_interceptor.dart';
+import 'package:event_app/app/apiHandler/token_manager.dart';
+import 'package:http_interceptor/http_interceptor.dart';
 
-// class RefreshTokenInterceptor implements InterceptorContract {
-//   @override
-//   Future<RequestData> interceptRequest({required RequestData data}) async {
-//     // Access your TokenManager here (assuming you have one)
-//     final tokenManager = TokenManager();
-//     final accessToken = await tokenManager.getAccessToken();
+class RefreshTokenInterceptor  extends InterceptorContract {
+late final TokenManager tokenManager;
+//RefreshTokenInterceptor(this.tokenManager); 
 
-//     // Set the authorization header if an access token is available
-//     if (accessToken != null) {
-//       data.headers['Authorization'] = 'Bearer $accessToken';
-//     }
+  @override
+ Future<BaseRequest> interceptRequest({required BaseRequest? request}) async {
+    if (!request!.url.toString().contains('/login')||!request!.url.toString().contains('/register')) {
 
-//     return data;
-//   }
+   final accessToken = await tokenManager.getAccessToken();
+   request.headers['Authorization'] = 'Bearer $accessToken';}
+    return request;
+  }
 
-//   @override
-//   Future<ResponseData> interceptResponse({required ResponseData data}) async {
-//     if (data.statusCode == 401) {
-//       final tokenManager = TokenManager();
-//       try {
-//         await tokenManager.refreshToken();
-//         // Reconstruct the request with the new access token
-//         final refreshedRequestData = RequestData.from(data.request);
-//         refreshedRequestData.headers['Authorization'] = 'Bearer ${await tokenManager.getAccessToken()}';
+  @override
+  Future<BaseResponse> interceptResponse({required BaseResponse response}) async {
+     if (response.statusCode == 401) {
+       try {
+        await tokenManager.refreshToken();
+        final refreshedRequest = await interceptRequest(request: response.request); // Reuse interceptRequest
+        // Assuming no further processing on the refreshed request is needed
+        return refreshedRequest as BaseResponse;
+      } catch (e) {
+        // Handle refresh token failure (e.g., logout user)
+        throw Exception('Refresh token failed');
+      }
+    }
+     
 
-//         // Retry the request
-//         final newResponseData = await HttpInterceptors().resolve(RequestData.from(refreshedRequestData));
-//         return newResponseData;
-//       } catch (e) {
-//         // Handle refresh token failure (e.g., logout user)
-//         throw Exception('Refresh token failed');
-//       }
-//     }
-//     return data;
-//   }
-// }
+    return response ;
+  }}
+

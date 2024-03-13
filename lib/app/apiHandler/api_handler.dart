@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:event_app/app/apiHandler/http_interceptor.dart';
 import 'package:event_app/app/utils/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:http_interceptor/http/intercepted_client.dart';
 
 
 class ApiHandler {
@@ -16,15 +18,18 @@ class ApiHandler {
   ApiHandler._internal() {
     _baseUrl = eventsApiUrl;
   }
-
+final client = InterceptedClient.build(
+  interceptors: [RefreshTokenInterceptor()],
+);
  late String _baseUrl;
  Map<String, String> _authorizationHeader={};
   Future<dynamic> get(String endpoint,{Map<String, String>? headers}) async {
     headers = _authorizationHeader;
     headers.addAll(headers ?? {'Content-Type': 'application/json'});
-    final response = await http.get(Uri.parse('$_baseUrl$endpoint'),headers: headers,);
+    final response = await client.get(Uri.parse('$_baseUrl$endpoint'),headers: headers,);
     return _handleResponse(response);
   }
+  
 
   Future<dynamic> post(String endpoint, dynamic data, {Map<String, String>? headers}) async {
     print("$data");
@@ -34,10 +39,8 @@ class ApiHandler {
     headers = _authorizationHeader;
     headers.addAll(headers);
     headers.addAll({'Content-Type': 'application/json'});
-
-
   }
-    final response = await http.post(
+    final response = await client.post(
       Uri.parse('$_baseUrl$endpoint'),
      headers: headers,
       body: jsonEncode(data),
@@ -69,7 +72,7 @@ class ApiHandler {
   }
 
   Future<dynamic> put(String endpoint, dynamic data) async {
-    final response = await http.put(
+    final response = await client.put(
       Uri.parse('$_baseUrl$endpoint'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(data),
