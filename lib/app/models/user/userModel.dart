@@ -6,7 +6,7 @@ class User {
  String? profilePicture;
   final String email;
   final String password;
-  List<Event>? events;
+  List<String>? events;
 
   User({ this.id,required this.username,this.profilePicture, required this.email,required this.password, this.events});
 
