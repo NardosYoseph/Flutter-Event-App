@@ -48,6 +48,22 @@ final client = InterceptedClient.build(
     );
     return _handleResponse(response);
   }
+  Future<dynamic> login(String endpoint, dynamic data, {Map<String, String>? headers}) async {
+    print("$data");
+     if (_authorizationHeader.isEmpty) {
+    headers = headers ?? {'Content-Type': 'application/json'};
+  } else {
+    headers = _authorizationHeader;
+    headers.addAll(headers);
+    headers.addAll({'Content-Type': 'application/json'});
+  }
+    final response = await http.post(
+      Uri.parse('$_baseUrl$endpoint'),
+     headers: headers,
+      body: jsonEncode(data),
+    );
+    return _handleResponse(response);
+  }
 
   Future<dynamic> pay(String endpoint, dynamic data, {Map<String, String>? headers}) async {
     print("$data");

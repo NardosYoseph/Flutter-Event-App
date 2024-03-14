@@ -11,7 +11,7 @@ class AuthService {
 
   Future<Object> login(String email, String password) async {
     final storage = FlutterSecureStorage();
-    final response = await ApiHandler().post("/user/login",{"email":email,"password":password});
+    final response = await ApiHandler().login("/user/login",{"email":email,"password":password});
     final accessToken = response['token']['accessToken'];
     final refreshToken = response['token']['refreshToken'];
 

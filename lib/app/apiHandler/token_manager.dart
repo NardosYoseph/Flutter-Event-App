@@ -24,7 +24,7 @@ class TokenManager {
   Future<String> refreshToken() async {
     // Make a request to the refresh token endpoint using your backend API
     final refreshToken = await getSecureStorageItem('refreshToken');
-    final response = await ApiHandler().post("/refreshToken",{'refreshToken': refreshToken});
+    final response = await ApiHandler().post("/refresh",{'refreshToken': refreshToken});
     
   
 

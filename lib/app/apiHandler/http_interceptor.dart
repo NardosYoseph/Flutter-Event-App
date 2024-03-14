@@ -7,11 +7,15 @@ RefreshTokenInterceptor(this.tokenManager);
 
   @override
  Future<BaseRequest> interceptRequest({required BaseRequest? request}) async {
-    if (!request!.url.toString().contains('/login')||!request.url.toString().contains('/register')) {
+  print(request?.url.toString());
+   // if (!request!.url.toString().contains('/login')||!request.url.toString().contains('/register')) {
 
    final accessToken = await tokenManager.getAccessToken();
-   request.headers['Authorization'] = 'Bearer $accessToken';}
-    return request;
+
+   request?.headers['Authorization'] = 'Bearer $accessToken';
+   
+  // }
+    return request as BaseRequest;
   }
 
   @override
