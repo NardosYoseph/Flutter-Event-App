@@ -8,10 +8,9 @@ class Event {
   final String time;
   final double rate;
   final double price;
-  final int? totalTickets;
-  final int? paidTickets;
+  final int? availableTickets;
   final String image;
-
+List<dynamic>? attendees;
   Event({
     this.id,
     required this.title,
@@ -20,10 +19,9 @@ class Event {
     required this.time,
     required this.rate,
     required this.price,
-    required this.totalTickets,
-    required this.paidTickets,
+    required this.availableTickets,
     required this.image,
-
+     this.attendees
   });
 
 
@@ -37,8 +35,8 @@ class Event {
       image: json['image'],
       rate: json['rate'].toDouble(),
     price: json['price'] != null ? json['price'].toDouble() : 0.0,
-      totalTickets: json['totalTickets'],
-      paidTickets: json['paidTickets'],
+      availableTickets: json['availableTickets'],
+      attendees: json['attendees'],
       
     );
   }
@@ -73,7 +71,6 @@ Map<String, dynamic> toJson() => {
     'image': image,
     'rate': rate,
     'price': price,
-    'totalTickets': totalTickets,
-    'paidTickets' : paidTickets
+    'totalTickets': availableTickets,
   };
 }

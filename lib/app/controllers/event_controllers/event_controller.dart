@@ -36,8 +36,7 @@ final FirebaseStorage storage = FirebaseStorage.instance;
         image: imageUrl, 
         rate: event.rate,
         price: event.price,
-        totalTickets: event.totalTickets,
-        paidTickets: event.paidTickets
+        availableTickets: event.availableTickets,
       );
       final success = await _eventService.createEvent(updatedEvent);
       if (success!=null) {
@@ -61,11 +60,9 @@ final FirebaseStorage storage = FirebaseStorage.instance;
       return [];
     }
   }
-
  Future<Event?> fetchEventbyID(String? eventID) async {
    try {
        singleEvent = await _eventService.fetchEventbyID(eventID);
-      // singleEvent=response;
       print(singleEvent);
      return singleEvent;
     } catch (error) {

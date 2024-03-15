@@ -8,7 +8,7 @@ final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      height: 70,
       width: 250,
       child: TextFormField(
         controller: controller,

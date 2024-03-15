@@ -11,7 +11,7 @@ class AuthService {
 
   Future<Object> login(String email, String password) async {
     final storage = FlutterSecureStorage();
-    final response = await ApiHandler().login("/user/login",{"email":email,"password":password});
+    final response = await ApiHandler().loginAndRegister("/user/login",{"email":email,"password":password});
     final accessToken = response['token']['accessToken'];
     final refreshToken = response['token']['refreshToken'];
 
@@ -23,7 +23,7 @@ class AuthService {
 
   Future<bool?> register(User user) async {
 
-    final response = await ApiHandler().post("/user/register", user.toJson());
+    final response = await ApiHandler().loginAndRegister("/user/register", user.toJson());
      if (response is bool) {
       return response;
     } else if (response is Map<String, dynamic>) {

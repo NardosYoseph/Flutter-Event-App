@@ -92,6 +92,8 @@ class _EventFormState extends State<EventForm> {
             EventTitleField(
                 controller: titleController,
                 title: titleController.text),
+            SizedBox(height: 10),
+
             EventDescriptionField(
                 controller: descriptionController,
                 description: descriptionController.text),
@@ -164,8 +166,7 @@ class _EventFormState extends State<EventForm> {
                       image: _image!.path,
                       rate: _rate,
                       price: double.parse(priceController.text),
-                      totalTickets: _totalTickets,
-                      paidTickets: 0);
+                      availableTickets: _totalTickets,);
 
                   eventController.CreateEvent(context,event,_image );
                 }

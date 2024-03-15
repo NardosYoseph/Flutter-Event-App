@@ -4,15 +4,18 @@ class Payment {
   final String amount;
   final String currency;
   final String tx_ref;
-  final String callback_url;
+   String? callback_url;
    String? return_url;
+   String? userId;
+
 
   Payment({
    required this.amount,
     required this.currency,
     required this.tx_ref,
-    required this.callback_url,
-     this.return_url
+    this.callback_url,
+     this.return_url,
+     this.userId
 
   });
   
@@ -23,5 +26,6 @@ class Payment {
 'tx_ref':tx_ref,
 'callback_url':callback_url,
 'return_url':return_url,
+'userId':userId,
 };
 }

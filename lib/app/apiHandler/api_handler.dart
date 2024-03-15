@@ -48,7 +48,7 @@ final client = InterceptedClient.build(
     );
     return _handleResponse(response);
   }
-  Future<dynamic> login(String endpoint, dynamic data, {Map<String, String>? headers}) async {
+  Future<dynamic> loginAndRegister(String endpoint, dynamic data, {Map<String, String>? headers}) async {
     print("$data");
      if (_authorizationHeader.isEmpty) {
     headers = headers ?? {'Content-Type': 'application/json'};

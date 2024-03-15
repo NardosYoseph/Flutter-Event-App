@@ -1,16 +1,20 @@
 
 import 'package:event_app/app/controllers/user_conrollers/user_controller.dart';
+import 'package:event_app/app/models/user/userModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart'; // for user image
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get/get.dart'; 
+import 'package:jwt_decoder/jwt_decoder.dart';
 
-class MySidebar extends StatelessWidget { // Path to your user image asset
-  UserController userController = Get.find<UserController>();
-
+class MySidebar extends StatelessWidget {
    MySidebar({
     super.key,
   });
 
+  UserController userController = Get.put(UserController());
+
+//  @override
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -18,23 +22,29 @@ class MySidebar extends StatelessWidget { // Path to your user image asset
         padding: EdgeInsets.zero,
         children: [
            DrawerHeader(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
             ),
             child: Column(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 40,
                   backgroundImage: AssetImage( "assets/profile.png"),
                 ),
-                Text(
-                  userController.singleUSer.username,
-                  style: TextStyle(fontSize: 18, color: Colors.black),
-                ),
-                Text(
-                  userController.singleUSer.email,
-                  style: TextStyle(fontSize: 14, color: Colors.black),
-                ),
+               GetBuilder<UserController>(
+  init: UserController(), // Initialize the controller
+  builder: (controller) => Text(
+    controller.singleUser?.username ?? "", // Use safe navigation
+    style: const TextStyle(fontSize: 18, color: Colors.black),
+  ),
+),
+                GetBuilder<UserController>(
+  init: UserController(), // Initialize the controller
+  builder: (controller) => Text(
+    controller.singleUser?.email ?? "", // Use safe navigation
+    style: const TextStyle(fontSize: 18, color: Colors.black),
+  ),
+),
               ],
             ),
           ),
