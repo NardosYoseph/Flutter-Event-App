@@ -59,6 +59,11 @@ class MySidebar extends StatelessWidget {
             title: const Text('Settings'),
             onTap: () => Navigator.pop(context), // Replace with your action
           ),
+            ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text('Logout'),
+            onTap: () => Get.toNamed("/login"), // Replace with your action
+          ),
         ],
       ),
     );

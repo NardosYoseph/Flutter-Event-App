@@ -17,6 +17,7 @@ class EventView extends StatelessWidget {
 
   EventController eventController = Get.find<EventController>();
   PaymentController paymentController = Get.put(PaymentController());
+  String dateTime=DateTime.now().millisecondsSinceEpoch.toString();
 
   @override
   Widget build(BuildContext context) {
@@ -171,8 +172,6 @@ width: 10,          ),
               const SizedBox(
                 height: 10,
               ),
-              const Text("Rate this event",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               const SizedBox(
                 height: 10,
               ),
@@ -186,8 +185,8 @@ width: 10,          ),
                     Payment payment = Payment(
                       amount: eventController.singleEvent.price.toString(),
                       currency: "ETB",
-                      tx_ref: DateTime.now().millisecondsSinceEpoch.toString(),
-                      callback_url: "$eventsApiUrl/payment/paymentStatus",
+                      tx_ref:dateTime,
+                      callback_url: "$eventsApiUrl/payment/paymentStatus/$dateTime",
                     );
                     String paymentUrl =
                         await paymentController.makePayment(payment);
