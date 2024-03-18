@@ -44,7 +44,7 @@ class EventView extends StatelessWidget {
                 topLeft: Radius.circular(30.0), // Set desired radius
                 topRight: Radius.circular(30.0), // Set desired radius
               ),
-              color: Color.fromARGB(255, 250, 236, 216)),
+             ),
           child:Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children:[
@@ -176,34 +176,7 @@ width: 10,          ),
               const SizedBox(
                 height: 10,
               ),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.star, color: Colors.black),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Icon(
-                    Icons.star,
-                    color: Colors.black,
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Icon(
-                    Icons.star,
-                    color: Colors.black,
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Icon(Icons.star, color: Colors.black),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Icon(Icons.star, color: Colors.black),
-                ],
-              ),
+             
               const SizedBox(
                 height: 20,
               ),
@@ -214,7 +187,7 @@ width: 10,          ),
                       amount: eventController.singleEvent.price.toString(),
                       currency: "ETB",
                       tx_ref: DateTime.now().millisecondsSinceEpoch.toString(),
-                      callback_url: "$eventsApiUrl/paymentStatus",
+                      callback_url: "$eventsApiUrl/payment/paymentStatus",
                     );
                     String paymentUrl =
                         await paymentController.makePayment(payment);
