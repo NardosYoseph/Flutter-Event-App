@@ -17,7 +17,7 @@ class EventView extends StatelessWidget {
 
   EventController eventController = Get.find<EventController>();
   PaymentController paymentController = Get.put(PaymentController());
-  String dateTime=DateTime.now().millisecondsSinceEpoch.toString();
+  String txnRef=DateTime.now().millisecondsSinceEpoch.toString();
 
   @override
   Widget build(BuildContext context) {
@@ -185,8 +185,8 @@ width: 10,          ),
                     Payment payment = Payment(
                       amount: eventController.singleEvent.price.toString(),
                       currency: "ETB",
-                      tx_ref:dateTime,
-                      callback_url: "$eventsApiUrl/payment/paymentStatus/$dateTime",
+                      tx_ref:txnRef,
+                      callback_url: "$eventsApiUrl/payment/paymentStatus/$txnRef",
                     );
                     String paymentUrl =
                         await paymentController.makePayment(payment);

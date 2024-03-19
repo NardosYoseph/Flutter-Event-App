@@ -3,7 +3,5 @@ class EventOrganizer {
 List<String>? events;
 String? logo;
 
-
-
  EventOrganizer({required this.name,this.events,this.logo});
 }
