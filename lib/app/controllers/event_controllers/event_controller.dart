@@ -71,6 +71,18 @@ final FirebaseStorage storage = FirebaseStorage.instance;
     }
   }
 
+   Future<List<Event>?> searchEvent(String? searchTerm) async {
+   try {
+       List<Event> events = await _eventService.searchEvent(searchTerm);
+      print(events);
+     return events;
+    } catch (error) {
+      print('Error fetching event: $error');
+      return null;
+    }
+  }
+
+
 Future<String> _uploadImageToFirebaseStorage(File image,String token) async {
     try {
     final filename = '${DateTime.now().millisecondsSinceEpoch}.jpg';

@@ -119,6 +119,7 @@ Future<void> _fetchUser() async {
                 const SizedBox(
                   height: 10,
                 ),
+                SearchBar(controller: SearchController,onChanged: (text) => eventController.searchEvent(text),),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

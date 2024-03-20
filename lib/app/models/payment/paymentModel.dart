@@ -5,6 +5,7 @@ class Payment {
   final String amount;
   final String currency;
   final String tx_ref;
+ String? status;
    String? callback_url;
    //String? return_url;
    List<dynamic>? userId;
@@ -15,6 +16,7 @@ class Payment {
     required this.currency,
     required this.tx_ref,
     this.callback_url,
+    this.status,
    //  this.return_url,
      this.userId
 
@@ -26,6 +28,7 @@ class Payment {
       amount: json['amount'],
       currency: json['currency'],
       tx_ref:json['tx_ref'],
+      status:json['status'],
       callback_url: json['callback_url'],
       //return_url:json["return_url"],
       userId: json['userId'],
@@ -38,6 +41,7 @@ class Payment {
 'amount':amount,
 'currency':currency,
 'tx_ref':tx_ref,
+'status':status,
 'callback_url':callback_url,
 //'return_url':return_url,
 'userId':userId,
