@@ -96,6 +96,13 @@ final client = InterceptedClient.build(
     );
     return _handleResponse(response);
   }
+   Future<dynamic> search(String endpoint, dynamic data) async {
+    final response = await client.get(
+      Uri.parse('$_baseUrl$endpoint').replace(queryParameters: {'q': data}),
+      headers: {'Content-Type': 'application/json'},
+    );
+    return _handleResponse(response);
+  }
 
   Future<dynamic> delete(String endpoint) async {
     final response = await http.delete(Uri.parse('$_baseUrl$endpoint'));

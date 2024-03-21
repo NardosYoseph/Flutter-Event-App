@@ -3,7 +3,7 @@ import 'package:event_app/app/services/paymentService/chapaPaymentServcie.dart';
 import 'package:get/get.dart';
 
 
-class PaymentController extends GetxController{
+class ChapaPaymentController extends GetxController{
 final ChapaPaymentService _paymentService= ChapaPaymentService();
 String? paymentUrl;
 Future<dynamic> makePayment(Payment payment) async {

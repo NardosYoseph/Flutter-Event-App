@@ -45,7 +45,7 @@ class EventService{
   }
   }
   Future<List<Event>> searchEvent(String? searchTerm) async {
-    final response = await ApiHandler().get("/event/search/$searchTerm",);
+    final response = await ApiHandler().search("/event/search",searchTerm);
     print(response);
     if (response.containsKey('events')) {
         List<Event> events = (response['events'] as List<dynamic>)

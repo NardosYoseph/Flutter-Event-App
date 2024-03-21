@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:event_app/app/controllers/payment_controller/payment_controller.dart';
 import 'package:event_app/app/utils/text_util.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:event_app/app/controllers/event_controllers/event_controller.dart';
@@ -16,6 +17,7 @@ class EventView extends StatelessWidget {
   EventView({super.key});
 
   EventController eventController = Get.find<EventController>();
+  ChapaPaymentController chapaPaymentController = Get.put(ChapaPaymentController());
   PaymentController paymentController = Get.put(PaymentController());
   String txnRef=DateTime.now().millisecondsSinceEpoch.toString();
 
@@ -188,10 +190,13 @@ width: 10,          ),
                       tx_ref:txnRef,
                       callback_url: "$eventsApiUrl/payment/paymentStatus/$txnRef",
                     );
+                    payment.status="pending";
+                
                     String paymentUrl =
-                        await paymentController.makePayment(payment);
+                        await chapaPaymentController.makePayment(payment);
                     launchUrl(Uri.parse(paymentUrl));
-          
+            paymentController.storePayment(payment);
+                  print(payment);
                   }),
             ]),
             ]),

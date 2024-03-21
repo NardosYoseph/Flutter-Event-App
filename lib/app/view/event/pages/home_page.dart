@@ -24,7 +24,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController SearchController =TextEditingController();
   
-  List<Event> events = [];
+  List<Event>? events = [];
 
   final AuthController controller = Get.put(AuthController());
   final EventController eventController = Get.put(EventController());
@@ -39,6 +39,12 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _fetchEvents() async {
   final fetchedEvents = await eventController.fetchEvent();
+  setState(() {
+    events = fetchedEvents;
+  });
+}
+ Future<void> _searchEvents(text) async {
+  final fetchedEvents = await eventController.searchEvent(text);
   setState(() {
     events = fetchedEvents;
   });
@@ -119,7 +125,7 @@ Future<void> _fetchUser() async {
                 const SizedBox(
                   height: 10,
                 ),
-                SearchBar(controller: SearchController,onChanged: (text) => eventController.searchEvent(text),),
+              //  SearchBar(controller: SearchController,onChanged: (text) => _searchEvents(SearchController.text),),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -127,7 +133,7 @@ Future<void> _fetchUser() async {
                       text: " AllEvents",
                       color: Colors.black,
                     ),
-                     //SearchTextField(controller: SearchController),
+                     SearchTextField(controller: SearchController,onChanged: (text) => _searchEvents(SearchController.text),onClear: (){SearchController.clear(); _searchEvents("");},),
                   ],
                 ),
                 SizedBox(height: 15,),
@@ -136,18 +142,18 @@ Future<void> _fetchUser() async {
                   height: 400,
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
-                    itemCount: events.length,
+                    itemCount: events?.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: ()  async { 
                           
-                     Event? event=  await eventController.fetchEventbyID(events[index].id);
+                     Event? event=  await eventController.fetchEventbyID(events?[index].id);
                        print(event!.title);
  
                              Get.toNamed('/event_view');
    
                         },
-                        child: MyCard(event: events[index]));
+                        child: MyCard(event: events?[index]));
                     }
                   ),
                 )

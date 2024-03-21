@@ -15,7 +15,7 @@ class SearchTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 35,
+      height: 40,
       width: 200,
       child: TextField(
         controller: controller,

@@ -7,8 +7,9 @@ class Payment {
   final String tx_ref;
  String? status;
    String? callback_url;
-   //String? return_url;
    List<dynamic>? userId;
+   List<dynamic>? eventId;
+
 
   Payment({
     this.id,
@@ -18,7 +19,8 @@ class Payment {
     this.callback_url,
     this.status,
    //  this.return_url,
-     this.userId
+     this.userId,
+     this.eventId
 
   });
 
@@ -32,6 +34,7 @@ class Payment {
       callback_url: json['callback_url'],
       //return_url:json["return_url"],
       userId: json['userId'],
+      eventId: json['eventId'],
       
     );
   }
@@ -45,5 +48,6 @@ class Payment {
 'callback_url':callback_url,
 //'return_url':return_url,
 'userId':userId,
+'eventId':eventId
 };
 }

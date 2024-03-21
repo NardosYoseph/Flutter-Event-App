@@ -6,7 +6,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 class PaymentPage extends StatelessWidget {
   final _controller = WebViewController();
   
-  PaymentController paymentController= Get.find();
+  ChapaPaymentController paymentController= Get.find();
 
   @override
   Widget build(BuildContext context) {

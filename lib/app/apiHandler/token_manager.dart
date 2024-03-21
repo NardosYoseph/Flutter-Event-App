@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:event_app/app/apiHandler/api_handler.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get/get.dart';
 
 class TokenManager {
   static final TokenManager _instance = TokenManager._internal();
@@ -27,15 +28,15 @@ class TokenManager {
     final response = await ApiHandler().post("/refresh",{'refreshToken': refreshToken});
     
   
-
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       final newAccessToken = data['accessToken'];
       await setSecureStorageItem('accessToken', newAccessToken);
       return newAccessToken;
     } else {
-      // Handle refresh token failure (e.g., logout user)
+      Get.toNamed("/login");
       throw Exception('Refresh token failed');
+      
     }
   }
   Future<String?> getSecureStorageItem(String key) async {
