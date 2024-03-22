@@ -7,8 +7,8 @@ class Payment {
   final String tx_ref;
  String? status;
    String? callback_url;
-   List<dynamic>? userId;
-   List<dynamic>? eventId;
+  String? userId;
+ String? eventId;
 
 
   Payment({
@@ -50,4 +50,6 @@ class Payment {
 'userId':userId,
 'eventId':eventId
 };
+
+
 }

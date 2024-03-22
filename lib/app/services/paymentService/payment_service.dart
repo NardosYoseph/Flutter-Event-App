@@ -3,7 +3,7 @@ import 'package:event_app/app/models/payment/paymentModel.dart';
 
 class PaymentService{
   Future<Payment> storePayment(Payment payment) async{
-final  response= await ApiHandler().post('/payment/storePayment', payment);
+final  response= await ApiHandler().post('/payment/storePayment', payment.toJson());
 if(response){
 return response;}
 else{

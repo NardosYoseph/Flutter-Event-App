@@ -4,6 +4,7 @@ import 'package:event_app/app/models/event/eventModel.dart';
 import 'package:event_app/app/utils/text_util.dart';
 import 'package:event_app/app/view/event/widgets/card.dart';
 import 'package:event_app/app/view/event/widgets/event_organizers_card.dart';
+import 'package:event_app/app/view/event/widgets/fetchUser.dart';
 import 'package:event_app/app/view/event/widgets/fields/search_bar.dart';
 import 'package:event_app/app/view/event/widgets/menu_bar.dart';
 import 'package:flutter/foundation.dart';
@@ -29,12 +30,13 @@ class _HomePageState extends State<HomePage> {
   final AuthController controller = Get.put(AuthController());
   final EventController eventController = Get.put(EventController());
   UserController userController = Get.put(UserController());
+  FetchUser fetchUser=FetchUser();
 
    @override
   void initState() {
     super.initState();
     _fetchEvents();
-     _fetchUser();
+     fetchUser.fetchUser();
   }
 
   Future<void> _fetchEvents() async {
@@ -48,26 +50,6 @@ class _HomePageState extends State<HomePage> {
   setState(() {
     events = fetchedEvents;
   });
-}
-Future<String?> getUserId() async {
-  try {
-   final storage = await FlutterSecureStorage();
-
-    final String? accessToken = await storage.read(key:'accessToken');
-    final Map<String?, dynamic> decodedToken = JwtDecoder.decode(accessToken!);
-    return decodedToken['user']['_id'];
-  } catch (error) {
-    print('Error decoding token: $error');
-    return null; // Or handle the error differently
-  }
-}
-Future<void> _fetchUser() async {
-     final String? userId = await getUserId();
-      if (userId != null) {
-  await  userController.fetchUserById(userId); // Use userId if not null
-  } else {
-    // Handle case where userId is null (e.g., show error message)
-  }
 }
 
 

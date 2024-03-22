@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:event_app/app/controllers/payment_controller/payment_controller.dart';
+import 'package:event_app/app/controllers/user_conrollers/user_controller.dart';
+import 'package:event_app/app/models/user/userModel.dart';
 import 'package:event_app/app/utils/text_util.dart';
+import 'package:event_app/app/view/event/widgets/fetchUser.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:event_app/app/controllers/event_controllers/event_controller.dart';
 import 'package:event_app/app/controllers/payment_controller/chapaPaymentController.dart';
@@ -20,6 +23,9 @@ class EventView extends StatelessWidget {
   ChapaPaymentController chapaPaymentController = Get.put(ChapaPaymentController());
   PaymentController paymentController = Get.put(PaymentController());
   String txnRef=DateTime.now().millisecondsSinceEpoch.toString();
+  FetchUser fetchUser=FetchUser();
+  UserController userController = Get.put(UserController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -184,19 +190,22 @@ width: 10,          ),
               CustomizedButton(
                   text: "Get ticket",
                   onPressed: () async {
+final String? eventId=eventController.singleEvent.id;
+final String? userId=userController.singleUser?.id;
+
                     Payment payment = Payment(
                       amount: eventController.singleEvent.price.toString(),
                       currency: "ETB",
                       tx_ref:txnRef,
-                      callback_url: "$eventsApiUrl/payment/paymentStatus/$txnRef",
+                      callback_url: "$eventsApiUrl/payment/paymentStatus/$txnRef/$eventId/$userId",
                     );
                     payment.status="pending";
-                
+                    payment.eventId=eventController.singleEvent.id;
+                    payment.userId=userController.singleUser?.id;
                     String paymentUrl =
                         await chapaPaymentController.makePayment(payment);
                     launchUrl(Uri.parse(paymentUrl));
             paymentController.storePayment(payment);
-                  print(payment);
                   }),
             ]),
             ]),
