@@ -51,7 +51,7 @@ class MySidebar extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.event),
             title: const Text('My Events'),
-            onTap: () => Navigator.pop(context), // Replace with your action
+          onTap: () => Get.toNamed("/myEvents"), // Replace with your action
           ),
          
           ListTile(

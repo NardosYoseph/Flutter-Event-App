@@ -1,4 +1,5 @@
 
+import 'package:event_app/app/models/event/eventModel.dart';
 import 'package:event_app/app/models/user/userModel.dart';
 import 'package:get/get.dart';
 import 'package:event_app/app/services/userService/user_service.dart';
@@ -11,11 +12,10 @@ Future<User?> fetchUserById(String? id) async{
   print(singleUser);
   return singleUser;
 }
-// String get username {
-//     return singleUser.value?.username ?? ""; // Use safe navigation and default value
-//   }
-// String get email {
-//     return singleUser.value?.email ?? ""; // Use safe navigation and default value
-//   }
 
+Future<List<Event>?> findUserEvents(String? userId) async{
+List<Event>  events =await _userService.findUserEvents(userId);
+  print(events);
+  return events;
+}
 }

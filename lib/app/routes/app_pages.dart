@@ -7,4 +7,5 @@ abstract class Routes {
   static const EventView ='/event_view';
   static const CreateEvent ='/createEvent';
   static const PaymentPage ='/paymentpage';
+  static const MyEventsPage ='/myEvents';
 }
