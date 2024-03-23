@@ -17,7 +17,8 @@ class UserService{
   }}
 
   Future<List<Event>> findUserEvents(String? userId) async{
- final response = await ApiHandler().get("/user/findUserEvents/$userId");
+    print(userId);
+ final response = await ApiHandler().get('/user/findUserEvents/$userId');
   if (response != null) {
     print(response);
       List<Event> events = (response['events'] as List<dynamic>)

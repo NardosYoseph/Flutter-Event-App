@@ -14,8 +14,12 @@ Future<User?> fetchUserById(String? id) async{
 }
 
 Future<List<Event>?> findUserEvents(String? userId) async{
+  try{
 List<Event>  events =await _userService.findUserEvents(userId);
   print(events);
   return events;
+  }catch(error){
+    return null;
+  }
 }
 }

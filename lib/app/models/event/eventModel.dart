@@ -71,6 +71,6 @@ Map<String, dynamic> toJson() => {
     'image': image,
     'rate': rate,
     'price': price,
-    'totalTickets': availableTickets,
+    'availableTickets': availableTickets,
   };
 }

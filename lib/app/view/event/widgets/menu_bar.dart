@@ -48,6 +48,11 @@ class MySidebar extends StatelessWidget {
               ],
             ),
           ),
+            ListTile(
+            leading: const Icon(Icons.home),
+            title: const Text('Home'),
+          onTap: () => Get.toNamed("/homepage"), // Replace with your action
+          ),
           ListTile(
             leading: const Icon(Icons.event),
             title: const Text('My Events'),

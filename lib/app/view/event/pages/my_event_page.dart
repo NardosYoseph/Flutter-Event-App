@@ -25,11 +25,14 @@ class _MyEventPgeState extends State<MyEventPge> {
   void initState() {
     super.initState();
     _fetchUserEvents();
-
   }
   Future<void> _fetchUserEvents() async {
 
-  final fetchedEvents = await userController.findUserEvents(fetchUser.userId);
+final String? userId=userController.singleUser?.id;
+
+  print(userId);
+  final fetchedEvents = await userController.findUserEvents(userId);
+  print(fetchedEvents);
   setState(() {
     events = fetchedEvents;
   });
@@ -74,10 +77,10 @@ class _MyEventPgeState extends State<MyEventPge> {
                   height: 15,
                 ),
                SizedBox(
-                height: 200,
+                height: 700,
                  child: ListView.builder(
                       scrollDirection: Axis.vertical,
-                      itemCount: 4,
+                   itemCount: events?.length,
                       itemBuilder: (context, index) {
                         return MyCard(event: events?[index],);
 
