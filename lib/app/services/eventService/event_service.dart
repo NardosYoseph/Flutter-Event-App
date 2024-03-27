@@ -27,7 +27,9 @@ class EventService{
     List<Event> events = (response['eventList'] as List<dynamic>)
         .map((json) => Event.fromJson(json))
         .toList();
+         print("converted $events");
     return events;
+   
   } else {
     throw Exception('Failed to fetch events');
   }
@@ -45,6 +47,7 @@ class EventService{
   }
   }
   Future<List<Event>> searchEvent(String? searchTerm) async {
+    print(searchTerm);
     final response = await ApiHandler().search("/event/search",searchTerm);
     print(response);
     if (response.containsKey('events')) {

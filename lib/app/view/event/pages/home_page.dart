@@ -86,8 +86,13 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.black,
                   size: 16,
                 ),
-                    IconButton(onPressed: (){Get.toNamed("/createEvent");}, icon: Icon(Icons.add,size: 35,color: Colors.black,)),
-                   ],
+                userController.singleUser?.role ==
+              "EVENT_ORGANIZER"
+          ? IconButton(
+              onPressed: () => Get.toNamed("/createEvent"),
+              icon: Icon(Icons.add, size: 35, color: Colors.black),
+            )
+          : SizedBox(),],
                  ),
                
                 const SizedBox(

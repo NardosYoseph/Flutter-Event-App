@@ -97,6 +97,7 @@ final client = InterceptedClient.build(
     return _handleResponse(response);
   }
    Future<dynamic> search(String endpoint, dynamic data) async {
+    print(data);
     final response = await client.get(
       Uri.parse('$_baseUrl$endpoint').replace(queryParameters: {'q': data}),
       headers: {'Content-Type': 'application/json'},

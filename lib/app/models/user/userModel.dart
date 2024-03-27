@@ -6,9 +6,10 @@ class User {
  String? profilePicture;
   final String email;
   final String password;
+  final String role;
   List<String>? events;
 
-  User({ this.id,required this.username,this.profilePicture, required this.email,required this.password, this.events});
+  User({ this.id,required this.username,this.profilePicture, required this.email,required this.password, required this.role,this.events});
 
 Map<String, dynamic> toJson() => {
     "_id":id,
@@ -16,7 +17,8 @@ Map<String, dynamic> toJson() => {
     'profilePicture':profilePicture,
     'email': email, 
     'password': password,
-    'events': events
+    'events': events,
+    'role':role
   };
 
 factory User.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ factory User.fromJson(Map<String, dynamic> json) {
       profilePicture: json['profilePicture'],
       email: json['email'],
       password: json['password'],
+      role: json['role'],
       events: json['tickets']
     );
   }}

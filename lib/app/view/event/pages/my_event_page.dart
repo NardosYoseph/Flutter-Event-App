@@ -19,7 +19,7 @@ class MyEventPge extends StatefulWidget {
 class _MyEventPgeState extends State<MyEventPge> {
   List<Event>? events = [];
   UserController userController = Get.put(UserController());
-  FetchUser fetchUser=FetchUser();
+  // FetchUser fetchUser=FetchUser();
 
  @override
   void initState() {

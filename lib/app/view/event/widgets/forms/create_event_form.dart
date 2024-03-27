@@ -164,7 +164,7 @@ class _EventFormState extends State<EventForm> {
                       date: _date,
                       time: _time,
                       image: _image!.path,
-                      rate: _rate,
+                      status: "upcoming",
                       price: double.parse(priceController.text),
                       availableTickets: _totalTickets,);
 

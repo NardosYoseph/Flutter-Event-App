@@ -34,9 +34,9 @@ final FirebaseStorage storage = FirebaseStorage.instance;
         date: event.date,
         time: event.time,
         image: imageUrl, 
-        rate: event.rate,
         price: event.price,
         availableTickets: event.availableTickets,
+        status: "upcoming"
       );
       final success = await _eventService.createEvent(updatedEvent);
       if (success!=null) {

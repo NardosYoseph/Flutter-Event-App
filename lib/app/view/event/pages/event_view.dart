@@ -4,6 +4,7 @@ import 'package:event_app/app/controllers/user_conrollers/user_controller.dart';
 import 'package:event_app/app/models/user/userModel.dart';
 import 'package:event_app/app/utils/text_util.dart';
 import 'package:event_app/app/view/event/widgets/fetchUser.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:event_app/app/controllers/event_controllers/event_controller.dart';
 import 'package:event_app/app/controllers/payment_controller/chapaPaymentController.dart';
@@ -48,8 +49,7 @@ class EventView extends StatelessWidget {
     
         Expanded(
           child: Container(
-            
-            decoration: BoxDecoration(borderRadius: const BorderRadius.only(
+            decoration: const BoxDecoration(borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30.0), // Set desired radius
                 topRight: Radius.circular(30.0), // Set desired radius
               ),
@@ -59,38 +59,32 @@ class EventView extends StatelessWidget {
             children:[
           SizedBox(
                 height: 10,),
-          const Row(
+           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                "12+ people",
+                eventController.singleEvent.attendees!.length.toString()+" people",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               // SizedBox(
               //   width: 5,
               // ),
-              SizedBox(
-                width: 150,
+              const SizedBox(
+                width: 115,
                 child: Stack(
                   alignment: AlignmentDirectional.centerEnd,
                   children: [
                     CircleAvatar(
-                      foregroundImage: NetworkImage(
-                          "https://static.vecteezy.com/system/resources/previews/012/324/470/large_2x/half-body-20s-asian-woman-wear-formal-suit-blazer-shirt-dress-black-long-straight-hair-female-feel-happy-smile-fashion-vintage-poses-profile-look-at-camera-over-black-background-isolated-photo.jpg"),
-                    ),
+                      backgroundImage: AssetImage( "assets/profile.png"),),
                     Positioned(
                       left: 60, // Adjust the position as needed
                       child: CircleAvatar(
-                        foregroundImage: NetworkImage(
-                            "https://static.vecteezy.com/system/resources/previews/012/324/470/large_2x/half-body-20s-asian-woman-wear-formal-suit-blazer-shirt-dress-black-long-straight-hair-female-feel-happy-smile-fashion-vintage-poses-profile-look-at-camera-over-black-background-isolated-photo.jpg"),
-                      ),
+                        backgroundImage: AssetImage( "assets/profile.png"), ),
                     ),
                     Positioned(
                       left: 40, // Adjust the position as needed
                       child: CircleAvatar(
-                        foregroundImage: NetworkImage(
-                            "https://static.vecteezy.com/system/resources/previews/012/324/470/large_2x/half-body-20s-asian-woman-wear-formal-suit-blazer-shirt-dress-black-long-straight-hair-female-feel-happy-smile-fashion-vintage-poses-profile-look-at-camera-over-black-background-isolated-photo.jpg"),
-                      ),
+                        backgroundImage: AssetImage( "assets/profile.png"), ),
                     ),
                   ],
                 ),
@@ -112,14 +106,12 @@ width: 10,          ),
                   style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
              ],
            ),
-           const Row(
+            Row(
             children: [
               SizedBox(
                 width: 15,
               ),
-              Text(
-                  "Event detail decription Event detail decription\nEvent detail decription Event detail decription\nEvent detail decriptionEvent detail decription "),
-            ],
+              Text(eventController.singleEvent.description) ],
           ),
           const SizedBox(
             height: 35,
@@ -148,8 +140,28 @@ width: 10,          ),
                   const SizedBox(
                     width: 10,
                   ),
-                   Text(eventController.singleEvent.date.toString(), style: const TextStyle(fontSize: 18))
-                ],
+                   Text(DateFormat('yyyy-MM-dd').format(eventController.singleEvent.date).toString(), style: const TextStyle(fontSize: 18))
+               ,
+               const SizedBox(
+                    width: 10,
+                  ),
+                Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: const Color.fromARGB(255, 210, 233, 206),
+                      ),
+                      child: const Icon(
+                        Icons.punch_clock,
+                        size: 30,
+                      )),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                   Text(eventController.singleEvent.time.toString(), style: const TextStyle(fontSize: 18)),
+                   
+               ],
               ),
               const SizedBox(
                 height: 10,
@@ -174,7 +186,28 @@ width: 10,          ),
                   const SizedBox(
                     width: 10,
                   ),
-                   Text(eventController.singleEvent.price.toString(), style: const TextStyle(fontSize: 18))
+                   Text(eventController.singleEvent.price.toString(), style: const TextStyle(fontSize: 18)),
+                        const SizedBox(
+                    width: 15,
+                  ),
+                    Container(
+                      width: 100,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: const Color.fromARGB(255, 210, 233, 206),
+                      ),
+                       child:const Center(
+                         child: Text("Left ticket",
+                                         style: TextStyle(fontWeight: FontWeight.bold),
+                                       ),
+                       ),),
+                         const SizedBox(
+                    width: 10,
+                  ),
+                        Text(eventController.singleEvent.availableTickets.toString(),
+                                         style: TextStyle(fontWeight: FontWeight.bold),
+                                       ),
                 ],
               ),
               const SizedBox(

@@ -40,7 +40,8 @@ class RegistrationForm extends StatelessWidget {
                             username: usernameController.text,
                             email: emailController.text,
                             password: passwordController.text,
-                            events: []
+                            events: [],
+                            role:"USER"
                           );
                     authController.register(user);
 

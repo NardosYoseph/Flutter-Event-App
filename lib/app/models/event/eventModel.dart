@@ -6,10 +6,11 @@ class Event {
   final String description;
   final DateTime date;
   final String time;
-  final double rate;
   final double price;
   final int? availableTickets;
   final String image;
+  final String? eventOrganizer;
+  final String status;
 List<dynamic>? attendees;
   Event({
     this.id,
@@ -17,10 +18,11 @@ List<dynamic>? attendees;
     required this.description,
     required this.date,
     required this.time,
-    required this.rate,
     required this.price,
     required this.availableTickets,
     required this.image,
+    required this.status,
+     this.eventOrganizer,
      this.attendees
   });
 
@@ -33,10 +35,11 @@ List<dynamic>? attendees;
       date: DateTime.parse(json['date']),
       time: json['time'],
       image: json['image'],
-      rate: json['rate'].toDouble(),
-    price: json['price'] != null ? json['price'].toDouble() : 0.0,
+      price: json['price'] != null ? json['price'].toDouble() : 0.0,
       availableTickets: json['availableTickets'],
       attendees: json['attendees'],
+      status: json['status'],
+      eventOrganizer: json['eventOrganizer'],
       
     );
   }
@@ -69,8 +72,9 @@ Map<String, dynamic> toJson() => {
     'date': date.toIso8601String(), 
     'time': time,
     'image': image,
-    'rate': rate,
     'price': price,
+    'status':status,
+    'eventOrganizer':eventOrganizer,
     'availableTickets': availableTickets,
   };
 }
