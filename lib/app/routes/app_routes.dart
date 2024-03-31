@@ -5,6 +5,7 @@ import 'package:event_app/app/view/auth/pages/registration_page.dart';
 import 'package:event_app/app/view/event/pages/create_event_page.dart';
 import 'package:event_app/app/view/event/pages/event_view.dart';
 import 'package:event_app/app/view/event/pages/home_page.dart';
+import 'package:event_app/app/view/event/pages/live_event_stream.dart';
 import 'package:event_app/app/view/event/pages/my_event_page.dart';
 import 'package:event_app/app/view/event/pages/payment_page.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,8 @@ class AppRoutes {
     GetPage(name: Routes.CreateEvent, page: () => CreateEvent()),
     GetPage(name: Routes.PaymentPage, page: () => PaymentPage()),
     GetPage(name: Routes.MyEventsPage, page: () => MyEventPge()),
+    GetPage(name: Routes.LiveEventPage, page: () => LiveEventStream()),
+
 
 
   ];

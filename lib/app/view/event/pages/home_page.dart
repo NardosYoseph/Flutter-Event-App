@@ -92,7 +92,9 @@ class _HomePageState extends State<HomePage> {
               onPressed: () => Get.toNamed("/createEvent"),
               icon: Icon(Icons.add, size: 35, color: Colors.black),
             )
-          : SizedBox(),],
+          : SizedBox(),
+          
+          IconButton(icon:Icon(Icons.play_arrow), onPressed: (){Get.toNamed('/liveEvent');},),],
                  ),
                
                 const SizedBox(

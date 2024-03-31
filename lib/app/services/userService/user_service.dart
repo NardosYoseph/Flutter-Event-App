@@ -10,9 +10,7 @@ class UserService{
     final userData=response['user'];
      final user = User.fromJson(userData); 
     return user;
-     // Cast and convert
   } else {
-    // Handle case where response is null (e.g., throw error)
     throw Exception('Error fetching user');
   }}
 

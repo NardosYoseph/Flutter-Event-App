@@ -53,6 +53,10 @@ dependencies:
   webview_flutter: ^4.7.0
   http_interceptor: ^2.0.0-beta.8
   jwt_decoder: ^2.0.1
+  web_socket_channel: ^2.4.0
+  camera: ^0.10.5+9
+  apivideo_live_stream: ^1.2.0
+  wakelock_plus: ^1.1.4
   
   # rive: ^0.12.4
 
