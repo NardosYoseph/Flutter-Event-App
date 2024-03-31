@@ -93,8 +93,7 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.add, size: 35, color: Colors.black),
             )
           : SizedBox(),
-          
-          IconButton(icon:Icon(Icons.play_arrow), onPressed: (){Get.toNamed('/liveEvent');},),],
+                   ]
                  ),
                
                 const SizedBox(
