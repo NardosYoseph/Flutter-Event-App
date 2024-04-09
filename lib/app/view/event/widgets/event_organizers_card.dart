@@ -12,8 +12,8 @@ EventController eventController= Get.put(EventController());
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
-      width: 200,
+      height: 250,
+      width: 250,
       child: Card(
         //elevation: 10,
          shape: RoundedRectangleBorder(
@@ -25,7 +25,7 @@ EventController eventController= Get.put(EventController());
           children:[ 
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-         child: Image.asset("assets/event organizer3.jpg",fit: BoxFit.fitHeight,width: 200,height: 200,)),
+         child: Image.asset("assets/event organizer3.jpg",fit: BoxFit.cover,width: 350,height: 250,)),
       Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.start,

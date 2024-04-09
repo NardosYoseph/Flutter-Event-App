@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:event_app/app/controllers/event_controllers/event_controller.dart';
 import 'package:event_app/app/controllers/user_conrollers/user_controller.dart';
 import 'package:event_app/app/models/event/eventModel.dart';
@@ -31,13 +33,55 @@ class _HomePageState extends State<HomePage> {
   final EventController eventController = Get.put(EventController());
   UserController userController = Get.put(UserController());
   FetchUser fetchUser=FetchUser();
+  final scrollController = ScrollController(); // Get reference to controller
+late Timer _timer;
 
+// Call this function to start the scrolling timer
+void startScrollTimer() {
+  // Cancel the existing timer if it's running
+  if (_timer.isActive) {
+    _timer.cancel();
+  }
+  // Start a new timer that calls _scrollToNext every 3 seconds
+  _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _scrollToNext();
+  });
+}
    @override
   void initState() {
     super.initState();
     _fetchEvents();
      fetchUser.fetchUser();
+     startScrollTimer;
+    //  WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToNext());
   }
+  @override
+void dispose() {
+  // startScrollTimer.();
+  super.dispose();
+}
+
+void _scrollToNext() async {
+  if (scrollController.hasClients) {
+    final maxExtent = scrollController.position.maxScrollExtent;
+    final currentOffset = scrollController.offset;
+    final viewportWidth = scrollController.position.viewportDimension;
+    
+    // Calculate the position of the next index
+    final nextOffset = currentOffset + viewportWidth;
+
+    // Ensure we don't exceed the maximum scroll extent
+    final targetOffset = nextOffset > maxExtent ? maxExtent : nextOffset;
+
+    // Scroll to the calculated target offset
+    await scrollController.animateTo(
+      targetOffset,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.ease,
+    );
+  }
+}
+
 
   Future<void> _fetchEvents() async {
   final fetchedEvents = await eventController.fetchEvent();
@@ -70,82 +114,89 @@ class _HomePageState extends State<HomePage> {
                 ],),
          drawer: MySidebar(),
          
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Padding(
-            padding: const EdgeInsets.all(5),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                   children: [
-                     TextUtil(
-                  text: " Event Organizers",
-                  color: Colors.black,
-                  size: 16,
-                ),
-                userController.singleUser?.role ==
-              "EVENT_ORGANIZER"
-          ? IconButton(
-              onPressed: () => Get.toNamed("/createEvent"),
-              icon: Icon(Icons.add, size: 35, color: Colors.black),
-            )
-          : SizedBox(),
-                   ]
-                 ),
-               
-                const SizedBox(
-                  height: 15,
-                ),
-               SizedBox(
-                height: 200,
-                 child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 4,
-                      itemBuilder: (context, index) {
-                        return EventOrganizersCard();
-
-                      }
-                    ),
-               ),
-                const SizedBox(
-                  height: 10,
-                ),
-              //  SearchBar(controller: SearchController,onChanged: (text) => _searchEvents(SearchController.text),),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextUtil(
-                      text: " AllEvents",
-                      color: Colors.black,
-                    ),
-                     SearchTextField(controller: SearchController,onChanged: (text) => _searchEvents(SearchController.text),onClear: (){SearchController.clear(); _searchEvents("");},),
-                  ],
-                ),
-                SizedBox(height: 15,),
-                SizedBox(
-                  width: double.infinity,
-                  height: 400,
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: events?.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: ()  async { 
-                          
-                     Event? event=  await eventController.fetchEventbyID(events?[index].id);
-                       print(event!.title);
- 
-                             Get.toNamed('/event_view');
-   
-                        },
-                        child: MyCard(event: events?[index]));
-                    }
+        body: RefreshIndicator(
+          onRefresh: _fetchEvents,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Padding(
+              padding: const EdgeInsets.all(5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                     children: [
+                       TextUtil(
+                    text: " Event Organizers",
+                    color: Colors.black,
+                    size: 16,
                   ),
-                )
-              ],
+                  userController.singleUser?.role ==
+                "EVENT_ORGANIZER"
+            ? IconButton(
+                onPressed: () => Get.toNamed("/createEvent"),
+                icon: Icon(Icons.add, size: 35, color: Colors.black),
+              )
+            : SizedBox(),
+                     ]
+                   ),
+                 
+                  const SizedBox(
+                    height: 15,
+                  ),
+                 SizedBox(
+                  height: 200,
+                   child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 4,
+                      
+                   itemBuilder: (context, index) => EventOrganizersCard(), // concise syntax
+    controller: scrollController, 
+          
+                        
+                      ),
+                 ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                //  SearchBar(controller: SearchController,onChanged: (text) => _searchEvents(SearchController.text),),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextUtil(
+                        text: " AllEvents",
+                        color: Colors.black,
+                      ),
+                       SearchTextField(controller: SearchController,onChanged: (text) => _searchEvents(SearchController.text),onClear: (){SearchController.clear(); _searchEvents("");},),
+                    ],
+                  ),
+                  SizedBox(height: 15,),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 400,
+                    child: RefreshIndicator(
+                      onRefresh: _fetchEvents,
+                      child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: events?.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: ()  async { 
+                              
+                         Event? event=  await eventController.fetchEventbyID(events?[index].id);
+                           print(event!.title);
+                                 
+                                 Get.toNamed('/event_view');
+                                   
+                            },
+                            child: MyCard(event: events?[index]));
+                        }
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ));

@@ -27,8 +27,29 @@ class LoginForm extends StatelessWidget {
                        SizedBox(height: 10),
                        PasswordTextField(controller: passwordController),
                       SizedBox(height: 20),
-                   CustomizedButton(text: "Login", onPressed: (){authController.login(emailController.text, passwordController.text);}),
-                           
+                  CustomizedButton(
+                  text: "Login",
+                  onPressed: () {
+                    authController.login(
+                      emailController.text,
+                      passwordController.text,
+                    );
+                  },
+                ),
+               SizedBox(height: 20),
+              Obx(() {
+                return authController.loginError.value.isNotEmpty
+                    ? Container(
+                      height: 25,
+                      width: 170,
+                      color: Colors.white,
+                      child: Text(
+                          authController.loginError.value,
+                          style: TextStyle(color: Colors.red),
+                        ),
+                    )
+                    : SizedBox();
+              }),        
                       TextButton(onPressed: (){Get.toNamed('/registration');}, child: TextUtil(text: "Don\'t have an account? Register here.")) 
                       
                     ],

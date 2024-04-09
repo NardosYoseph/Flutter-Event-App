@@ -48,6 +48,13 @@ final client = InterceptedClient.build(
     );
     return _handleResponse(response);
   }
+  Future<dynamic> hello(String endpoint) async {
+    final response = await http.get(
+      Uri.parse('$_baseUrl$endpoint'),
+     headers: {'Content-Type': 'application/json'},
+    );
+    return _handleResponse(response);
+  }
   Future<dynamic> loginAndRegister(String endpoint, dynamic data, {Map<String, String>? headers}) async {
     print("$data");
      if (_authorizationHeader.isEmpty) {
@@ -73,8 +80,6 @@ final client = InterceptedClient.build(
     headers = _authorizationHeader;
     headers.addAll(headers);
     headers.addAll({'Content-Type': 'application/json'});
-
-
   }
     final response = await http.post(
       Uri.parse(endpoint),
@@ -83,6 +88,7 @@ final client = InterceptedClient.build(
     );
     return _handleResponse(response);
   }
+
   
  Map<String, String> setAuthorization(String token) {
    return _authorizationHeader = {'Authorization': 'Bearer $token'};

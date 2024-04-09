@@ -1,3 +1,4 @@
+import 'package:event_app/app/apiHandler/api_handler.dart';
 import 'package:event_app/app/view/auth/widgets/forms/login_form.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -8,7 +9,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin{
-
+ @override
+  void initState() {
+    super.initState();
+    hello();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -41,4 +46,9 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
     );
     
   }
+}
+Future<Object> hello() async{
+Map<String, dynamic> response= await ApiHandler().hello('/user/hello');
+print(response);
+return response;
 }

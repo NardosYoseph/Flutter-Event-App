@@ -11,6 +11,7 @@ class AuthService {
 
   Future<Object> login(String email, String password) async {
     final storage = FlutterSecureStorage();
+    
     final response = await ApiHandler().loginAndRegister("/user/login",{"email":email,"password":password});
     final accessToken = response['token']['accessToken'];
     final refreshToken = response['token']['refreshToken'];
@@ -19,6 +20,7 @@ class AuthService {
     await storage.write(key: 'refreshToken', value: refreshToken);
    // ApiHandler().setAuthorization(accessToken!);
       return response;
+   
   }
 
   Future<bool?> register(User user) async {

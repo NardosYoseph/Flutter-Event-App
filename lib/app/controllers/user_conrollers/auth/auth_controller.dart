@@ -8,7 +8,7 @@ class AuthController extends GetxController {
 final AuthService _authService = AuthService(); // Create an instance of AuthService
 
 
-
+var loginError = ''.obs;
   Future<void> login(String email, String password) async {
      try {
       // Call the registerUser method from AuthService
@@ -16,7 +16,7 @@ final AuthService _authService = AuthService(); // Create an instance of AuthSer
       print(success);
       Get.offAll(HomePage());
         } catch (error) {
-      // Handle any exceptions
+        loginError.value = "Invalid email or password";
       print('Error logging user: $error');
     }
   }
@@ -28,7 +28,7 @@ final AuthService _authService = AuthService(); // Create an instance of AuthSer
       if (success!=null) {
       Get.toNamed("/login");
       } else {
-        CustomSnackBar(message: 'invalid username or password');
+        CustomSnackBar(message: 'invalid email or password');
          print('internal Error loggind user');
       }
     } catch (error) {

@@ -57,6 +57,9 @@ dependencies:
   # camera: ^0.10.5+9
   # apivideo_live_stream: ^1.2.0
   wakelock_plus: ^1.1.4
+  # geolocator: ^11.0.0
+  permission_handler: ^11.3.1
+  # google_maps_flutter: ^2.5.3
   
   # rive: ^0.12.4
 
