@@ -16,20 +16,24 @@ import 'package:event_app/app/view/event/pages/home_page.dart';
 import 'package:event_app/app/view/event/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+  FetchUser fetchUser=FetchUser();
 
 class EventView extends StatelessWidget {
   EventView({super.key});
-
+ 
   EventController eventController = Get.find<EventController>();
   ChapaPaymentController chapaPaymentController = Get.put(ChapaPaymentController());
   PaymentController paymentController = Get.put(PaymentController());
   String txnRef=DateTime.now().millisecondsSinceEpoch.toString();
   FetchUser fetchUser=FetchUser();
   UserController userController = Get.put(UserController());
-
+   String paymentUrl='';
 
   @override
   Widget build(BuildContext context) {
+              bool isUserAttending = eventController.singleEvent.attendees!.contains(fetchUser.userId);
+
     return Scaffold(
   appBar: AppBar(actions:  [Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -66,9 +70,6 @@ class EventView extends StatelessWidget {
                 eventController.singleEvent.attendees!.length.toString()+" people",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              // SizedBox(
-              //   width: 5,
-              // ),
               const SizedBox(
                 width: 115,
                 child: Stack(
@@ -82,7 +83,7 @@ class EventView extends StatelessWidget {
                         backgroundImage: AssetImage( "assets/profile.png"), ),
                     ),
                     Positioned(
-                      left: 40, // Adjust the position as needed
+                      left: 40, 
                       child: CircleAvatar(
                         backgroundImage: AssetImage( "assets/profile.png"), ),
                     ),
@@ -111,7 +112,11 @@ width: 10,          ),
               SizedBox(
                 width: 15,
               ),
-              Text(eventController.singleEvent.description) ],
+                Expanded(
+      child: Text(
+        eventController.singleEvent.description,
+        softWrap: true, // Enable soft wrapping
+      ),) ],
           ),
           const SizedBox(
             height: 35,
@@ -220,6 +225,7 @@ width: 10,          ),
               const SizedBox(
                 height: 20,
               ),
+            !eventController.singleEvent.attendees!.contains(userController.singleUser?.id)?   
               CustomizedButton(
                   text: "Get ticket",
                   onPressed: () async {
@@ -235,11 +241,11 @@ final String? userId=userController.singleUser?.id;
                     payment.status="pending";
                     payment.eventId=eventController.singleEvent.id;
                     payment.userId=userController.singleUser?.id;
-                    String paymentUrl =
-                        await chapaPaymentController.makePayment(payment);
-                    launchUrl(Uri.parse(paymentUrl));
-            paymentController.storePayment(payment);
-                  }),
+                     paymentUrl =await chapaPaymentController.makePayment(payment);
+               
+                 Get.toNamed('/chapapage');
+                  }):SizedBox()
+                  
             ]),
             ]),
           ),

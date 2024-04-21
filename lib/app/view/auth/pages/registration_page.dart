@@ -22,7 +22,7 @@ class RegistrationPage extends StatelessWidget {
               child: Stack(
             children: [
               Image.asset(
-                "assets/event5.jpg",
+                "assets/event6.jpg",
                 fit: BoxFit.cover,
                 height: double.infinity,
                 width: double.infinity,

@@ -22,10 +22,11 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
           Stack(
             children: [
               Container(height: double.infinity,width: double.infinity,margin: EdgeInsets.all(0),
+              color: Colors.white,
               child: Stack(
             children: [
               Image.asset(
-                "assets/event5.jpg",
+                "assets/event6.jpg",
                 fit: BoxFit.cover,
                 height: double.infinity,
                 width: double.infinity,

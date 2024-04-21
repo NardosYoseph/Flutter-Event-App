@@ -36,7 +36,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      height: 70,
       width: 350,
       child: TextFormField(
         controller: widget.controller,
@@ -49,7 +49,8 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           ),
                fillColor: Colors.white,
                filled: true,
-         enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white,width: 3),borderRadius: BorderRadius.circular(10)),
+               errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red,width: 1),borderRadius: BorderRadius.circular(10)),
+         enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white,width: 1),borderRadius: BorderRadius.circular(10)),
         ),
         
         validator:  _validatePassword,

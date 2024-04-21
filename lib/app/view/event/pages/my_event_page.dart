@@ -4,10 +4,12 @@ import 'package:event_app/app/utils/text_util.dart';
 import 'package:event_app/app/view/event/widgets/card.dart';
 import 'package:event_app/app/view/event/widgets/fetchUser.dart';
 import 'package:event_app/app/view/event/widgets/menu_bar.dart';
+import 'package:event_app/app/view/event/widgets/myevent_card.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+
 
 class MyEventPge extends StatefulWidget {
   const MyEventPge({super.key});
@@ -82,7 +84,15 @@ final String? userId=userController.singleUser?.id;
                       scrollDirection: Axis.vertical,
                    itemCount: events?.length,
                       itemBuilder: (context, index) {
-                        return MyCard(event: events?[index],);
+                        return Container(
+                          height: 220,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            MyEventCard(event: events?[index],),
+                          Divider(height: 20,)
+                          ],
+                        ));
 
                       }
                     ),

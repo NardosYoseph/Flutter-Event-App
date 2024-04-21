@@ -11,6 +11,7 @@ class Event {
   final String image;
   final String? eventOrganizer;
   final String status;
+  final String? paymentID;
 List<dynamic>? attendees;
   Event({
     this.id,
@@ -23,7 +24,8 @@ List<dynamic>? attendees;
     required this.image,
     required this.status,
      this.eventOrganizer,
-     this.attendees
+     this.attendees,
+     this.paymentID
   });
 
 
@@ -40,6 +42,7 @@ List<dynamic>? attendees;
       attendees: json['attendees'],
       status: json['status'],
       eventOrganizer: json['eventOrganizer'],
+      paymentID: json['paymentID']
       
     );
   }
@@ -76,5 +79,6 @@ Map<String, dynamic> toJson() => {
     'status':status,
     'eventOrganizer':eventOrganizer,
     'availableTickets': availableTickets,
+    'paymentID': paymentID
   };
 }

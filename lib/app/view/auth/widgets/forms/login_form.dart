@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 
 class LoginForm extends StatelessWidget {
    LoginForm({super.key});
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
 
   final AuthController authController = Get.put(AuthController());
 
@@ -18,41 +20,45 @@ class LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
                 child: SingleChildScrollView(
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                       SizedBox(height: 30),
-                       EmailTextField(controller: emailController),
-                       SizedBox(height: 10),
-                       PasswordTextField(controller: passwordController),
-                      SizedBox(height: 20),
-                  CustomizedButton(
-                  text: "Login",
-                  onPressed: () {
-                    authController.login(
-                      emailController.text,
-                      passwordController.text,
-                    );
-                  },
-                ),
-               SizedBox(height: 20),
-              Obx(() {
-                return authController.loginError.value.isNotEmpty
-                    ? Container(
-                      height: 25,
-                      width: 170,
-                      color: Colors.white,
-                      child: Text(
-                          authController.loginError.value,
-                          style: TextStyle(color: Colors.red),
-                        ),
-                    )
-                    : SizedBox();
-              }),        
-                      TextButton(onPressed: (){Get.toNamed('/registration');}, child: TextUtil(text: "Don\'t have an account? Register here.")) 
+                child: Form(
+                     key: _formKey,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                         SizedBox(height: 30),
+                         EmailTextField(controller: emailController,email: emailController.text,),
+                         SizedBox(height: 10),
+                         PasswordTextField(controller: passwordController),
+                        SizedBox(height: 20),
+                    CustomizedButton(
+                    text: "Login",
+                    onPressed: () {
+                                        if (_formKey.currentState!.validate()) {
+                    _formKey.currentState!.save();
+                          
+                      authController.login(
+                        emailController.text,
+                        passwordController.text,
+                      );
+                    
+                     } },
+                  ),
+                                 SizedBox(height: 20),
+
+                    Obx(() {
+                          return Text(authController.loginError.value,style: TextStyle(color: Colors.red), );
+                      }),
+                   
+                                 SizedBox(height: 20),
                       
-                    ],
+                        TextButton(onPressed: (){
+             
+                          Get.toNamed('/registration');
+                    }, child: TextUtil(text: "Don\'t have an account? Register here.")) 
+                    
+                      ],
+                    ),
                   ),
                 ),
                             ),

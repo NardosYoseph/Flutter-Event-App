@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import "package:event_app/app/controllers/event_controllers/event_controller.dart";
 class EventOrganizersCard extends StatelessWidget {
-
-   EventOrganizersCard({super.key});
+String imageurl;
+   EventOrganizersCard({super.key,required this.imageurl});
 EventController eventController= Get.put(EventController());
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ EventController eventController= Get.put(EventController());
           children:[ 
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-         child: Image.asset("assets/event organizer3.jpg",fit: BoxFit.cover,width: 350,height: 250,)),
+         child: Image.asset(imageurl,fit: BoxFit.cover,width: 350,height: 250,)),
       Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.start,

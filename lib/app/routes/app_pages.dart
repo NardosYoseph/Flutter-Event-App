@@ -9,4 +9,6 @@ abstract class Routes {
   static const PaymentPage ='/paymentpage';
   static const MyEventsPage ='/myEvents';
   static const LiveEventPage='/liveEvent';
+  static const ChapaPage='/chapapage';
+
 }

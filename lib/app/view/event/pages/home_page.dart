@@ -147,11 +147,18 @@ void _scrollToNext() async {
                   ),
                  SizedBox(
                   height: 200,
-                   child: ListView.builder(
+                   child: ListView(
                         scrollDirection: Axis.horizontal,
-                        itemCount: 4,
-                      
-                   itemBuilder: (context, index) => EventOrganizersCard(), // concise syntax
+
+                    children: [
+                     EventOrganizersCard(imageurl: "assets/event organizer3.jpg",),
+                     EventOrganizersCard(imageurl: "assets/event organizer4.png",),
+                     EventOrganizersCard(imageurl: "assets/event organizer1.png",), 
+                     EventOrganizersCard(imageurl: "assets/event organizer3.jpg",), 
+                     EventOrganizersCard(imageurl: "assets/event organizer2.jpg",), 
+                     EventOrganizersCard(imageurl: "assets/event organizer4.png",), 
+                    ],
+                        
     controller: scrollController, 
           
                         

@@ -32,16 +32,16 @@ class MySidebar extends StatelessWidget {
                   backgroundImage: AssetImage( "assets/profile.png"),
                 ),
                GetBuilder<UserController>(
-  init: UserController(), // Initialize the controller
+  init: UserController(), 
   builder: (controller) => Text(
-    controller.singleUser?.username ?? "", // Use safe navigation
+    controller.singleUser?.username ?? "", 
     style: const TextStyle(fontSize: 18, color: Colors.black),
   ),
 ),
                 GetBuilder<UserController>(
-  init: UserController(), // Initialize the controller
+  init: UserController(), 
   builder: (controller) => Text(
-    controller.singleUser?.email ?? "", // Use safe navigation
+    controller.singleUser?.email ?? "", 
     style: const TextStyle(fontSize: 18, color: Colors.black),
   ),
 ),
